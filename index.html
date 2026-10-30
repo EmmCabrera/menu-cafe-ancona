@@ -57,75 +57,55 @@
 <body class="bg-[#F7F5ED] text-[#141615] min-h-screen flex flex-col antialiased font-sans selection:bg-[#6F816A] selection:text-[#F7F5ED]">
 
     <!-- =========================================================================
-         1. VISTA PRINCIPAL (HERO CON FONDO VERDE, CAFÉS Y EFECTO LA MANSIÓN)
+         1. VISTA PRINCIPAL (HERO CON FONDO VERDE DE CAFÉS Y LOGO DE LA SERPIENTE)
          ========================================================================= -->
     <section class="hero-mansion-section select-none" id="hero-view">
         
         <!-- Barra Superior Translúcida sobre el Fondo Verde -->
         <nav class="mansion-top-nav">
-            <div class="hidden md:flex items-center gap-6 text-xs font-mono tracking-widest text-[#F7F5ED]/90 uppercase">
-                <a href="#menu-seccion-principal" class="hover:text-white transition-colors">CARTA</a>
+            <div class="flex items-center gap-6 text-xs font-mono tracking-widest text-[#F7F5ED]/90 uppercase">
+                <a href="#menu-seccion-principal" class="hover:text-white transition-colors">CARTA DIGITAL</a>
                 <span class="text-white/40">/</span>
                 <a href="#seccion-exposiciones" class="hover:text-white transition-colors">EXPOSICIONES</a>
-                <span class="text-white/40">/</span>
-                <span class="text-[#86efac]">ENTRADA LIBRE</span>
+                <span class="text-white/40 hidden sm:inline">/</span>
+                <span class="text-[#86efac] hidden sm:inline">ENTRADA LIBRE</span>
             </div>
 
-            <!-- Monograma Central en el Nav -->
-            <div class="flex items-center gap-2 mx-auto md:mx-0">
-                <span class="inline-block w-2 h-2 rounded-full bg-[#86efac]"></span>
-                <span class="font-mono text-xs tracking-[0.25em] text-[#F7F5ED] uppercase font-bold">CAFÉ ANCONA</span>
-            </div>
-
-            <!-- Botón Reservar / WhatsApp Estilo La Mansión -->
+            <!-- Botón WhatsApp Directo (Sin botón de reservas) -->
             <div class="flex items-center gap-3">
-                <a href="https://wa.me/?text=Hola%20Café%20Ancona,%20quisiera%20hacer%20una%20reservación%20o%20pedido" target="_blank" class="mansion-btn-primary px-3.5 py-1.5 text-xs shadow-md">
-                    <i class="fa-brands fa-whatsapp mr-1.5 text-sm"></i>
-                    <span>RESERVAR</span>
+                <a href="https://wa.me/?text=Hola%20Café%20Ancona,%20quisiera%20hacer%20un%20pedido%20de%20la%20carta" target="_blank" class="mansion-btn-whatsapp px-4 py-2 text-xs flex items-center gap-1.5 shadow-lg" title="Contactar por WhatsApp">
+                    <i class="fa-brands fa-whatsapp text-sm"></i>
+                    <span>WHATSAPP</span>
                 </a>
             </div>
         </nav>
 
-        <!-- Centro: Emblema y Nombre Monumental con Efecto Letra por Letra -->
+        <!-- Centro: Logo de la Serpiente y Nombre Dorado con Animación Convergente -->
         <div class="flex flex-col items-center justify-center text-center px-4 my-auto pt-20 pb-8 z-10 w-full max-w-5xl">
             
-            <!-- Emblema: Serpiente Emplumada Prehispánica / Ramas de Olivo -->
-            <div class="flex items-center justify-center gap-3 mb-2 opacity-95">
-                <img src="assets/ramita_botanica.svg" alt="Rama botánica" class="w-8 sm:w-11 opacity-90 filter invert brightness-125 transform scale-x-[-1]" aria-hidden="true">
-                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-lg">
-                    <i class="fa-solid fa-mug-saucer text-lg sm:text-xl text-[#F7F5ED]"></i>
-                </div>
-                <img src="assets/ramita_botanica.svg" alt="Rama botánica" class="w-8 sm:w-11 opacity-90 filter invert brightness-125" aria-hidden="true">
+            <!-- Logo Oficial de la Serpiente Emplumada de Café Ancona -->
+            <div class="flex flex-col items-center justify-center mb-3 anim-serpiente-fade">
+                <img src="assets/serpiente_hd.png" alt="Serpiente Café Ancona" class="h-16 sm:h-20 md:h-24 w-auto object-contain filter drop-shadow-[0_4px_14px_rgba(0,0,0,0.7)]">
             </div>
 
-            <span class="font-serif italic text-sm sm:text-base md:text-lg text-[#F7F5ED]/90 tracking-[0.3em] uppercase block mb-1">
-                Café & Galería de Arte
-            </span>
-
-            <!-- NOMBRE MONUMENTAL: CAFÉ ANCONA CON EFECTO DE REVELACIÓN SECUENCIAL (ESTILO LA MANSIÓN) -->
-            <h1 class="font-titulo text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black tracking-tight text-[#F7F5ED] leading-none my-1 flex flex-wrap justify-center items-center drop-shadow-2xl" aria-label="Café Ancona">
-                <span class="inline-flex">
-                    <span class="hero-letter" style="--delay: 0.05s">C</span>
-                    <span class="hero-letter" style="--delay: 0.10s">A</span>
-                    <span class="hero-letter" style="--delay: 0.15s">F</span>
-                    <span class="hero-letter" style="--delay: 0.20s">É</span>
+            <!-- NOMBRE CON ANIMACIÓN CONVERGENTE: 'CAFÉ' DE LA DERECHA Y 'ANCONA' DE LA IZQUIERDA -->
+            <div class="flex flex-col items-center justify-center text-center overflow-hidden py-1">
+                <!-- CAFÉ: Arriba, en letras más chicas, entrando de la derecha -->
+                <span class="font-titulo text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-[0.38em] text-gold-ancona leading-none anim-cafe-right block mb-1">
+                    CAFÉ
                 </span>
-                <span class="hero-letter-space"> </span>
-                <span class="inline-flex">
-                    <span class="hero-letter" style="--delay: 0.28s">A</span>
-                    <span class="hero-letter" style="--delay: 0.33s">N</span>
-                    <span class="hero-letter" style="--delay: 0.38s">C</span>
-                    <span class="hero-letter" style="--delay: 0.43s">O</span>
-                    <span class="hero-letter" style="--delay: 0.48s">N</span>
-                    <span class="hero-letter" style="--delay: 0.53s">A</span>
+                
+                <!-- ANCONA: Abajo, en letras más grandes, entrando de la izquierda -->
+                <span class="font-titulo text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-[0.14em] text-gold-ancona leading-none anim-ancona-left block">
+                    ANCONA
                 </span>
-            </h1>
+            </div>
 
-            <!-- Línea fina con acento de oro / latón -->
-            <div class="w-full max-w-xs sm:max-w-md h-[1.5px] bg-gradient-to-r from-transparent via-[#F7F5ED]/70 to-transparent my-3"></div>
+            <!-- Línea fina divisoria en oro / latón -->
+            <div class="w-full max-w-xs sm:max-w-md h-[1.5px] bg-gradient-to-r from-transparent via-[#E6C265]/80 to-transparent my-3.5"></div>
 
             <p class="font-mono text-[10px] sm:text-xs text-[#F7F5ED]/90 tracking-[0.24em] uppercase max-w-md sm:max-w-xl mx-auto">
-                CUAJIMALPA DE MORELOS · CIUDAD DE MÉXICO
+                CAFÉ & GALERÍA DE ARTE · CUAJIMALPA
             </p>
 
             <!-- Acceso Directo al Menú / Carta -->
@@ -241,9 +221,9 @@
             </div>
         </div>
 
-        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center text-[10px] text-white/50 font-mono gap-2">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center text-[10px] text-white/60 font-mono gap-2">
             <span>© 2026 Café Ancona · Café & Galería de Arte.</span>
-            <span>Versión Demo 2 · Inspirada en La Mansión</span>
+            <span>Todos los derechos reservados.</span>
         </div>
     </footer>
 

@@ -1,12 +1,16 @@
 /* ==========================================================================
-   CAFÉ ANCONA - DEMO 2: ESTILO LA MANSIÓN (lamansion.com.mx)
-   - Hero: Fondo verde con composición de cafés de especialidad.
-   - Efecto tipográfico: Revelado secuencial de letras monumentales en crema.
-   - Menú: Formato carta digital de alta gama (más carta/menú que sitio web).
+   CAFÉ ANCONA - DEMO 2: CARTA DIGITAL & HERO CON ENTRADA CONVERGENTE
+   - Hero: Fondo verde con mesa de cafés de especialidad (foto real).
+   - Tipografía: 'CAFÉ' entra desde la derecha y 'ANCONA' entra desde la
+     izquierda en tonos dorados metálicos idénticos a la serpiente.
+   - Formato carta digital de alta gastronomía ágil y elegante.
    ========================================================================== */
 
 :root {
-  --mansion-green-table: #435F48; /* Verde mesa de La Mansión */
+  --ancona-gold-light: #FFE29A;
+  --ancona-gold-mid: #D4A84B;
+  --ancona-gold-dark: #9D7426;
+  --mansion-green-table: #49634C; /* Verde mesa de cafés */
   --mansion-ivory: #F7F5ED;       /* Hueso / crema */
   --mansion-ivory-light: #FCFBF7; /* Fondo tarjetas */
   --mansion-green: #6F816A;       /* Verde salvia institucional */
@@ -25,14 +29,14 @@ body {
     overflow-x: hidden;
 }
 
-/* 1. SECCIÓN HERO: FONDO VERDE CON CAFÉS Y TIPOGRAFÍA MONUMENTAL */
+/* 1. SECCIÓN HERO: FONDO VERDE CON CAFÉS Y ANIMACIÓN CONVERGENTE */
 .hero-mansion-section {
     position: relative;
     width: 100%;
     min-height: 92vh;
     background-color: var(--mansion-green-table);
     background-image: 
-        radial-gradient(ellipse 85% 65% at 50% 50%, rgba(0, 0, 0, 0.28) 0%, rgba(15, 25, 18, 0.75) 100%),
+        radial-gradient(ellipse 90% 70% at 50% 50%, rgba(15, 25, 18, 0.42) 0%, rgba(10, 18, 12, 0.78) 100%),
         url('assets/fondo_verde_cafes.jpg');
     background-size: cover;
     background-position: center center;
@@ -44,35 +48,70 @@ body {
     overflow: hidden;
 }
 
-/* Animación de entrada letra por letra estilo La Mansión */
-@keyframes letterReveal {
+/* Tipografía Dorada Metálica como la Serpiente de Ancona */
+.text-gold-ancona {
+    background: linear-gradient(135deg, #FFF0B8 0%, #E6C265 25%, #D4A84B 50%, #9D7426 80%, #ECC970 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 3px 12px rgba(0, 0, 0, 0.65)) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.9));
+}
+
+/* Animaciones de Entrada: 'CAFÉ' entra de la derecha, 'ANCONA' entra de la izquierda */
+@keyframes slideInFromRight {
     0% {
         opacity: 0;
-        transform: translateY(35px) scale(0.92);
-        filter: blur(6px);
+        transform: translateX(110px);
+        filter: blur(8px);
     }
     100% {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateX(0);
         filter: blur(0);
     }
 }
 
-.hero-letter {
-    display: inline-block;
-    color: #F7F5ED;
-    text-shadow: 
-        0 4px 18px rgba(0, 0, 0, 0.45),
-        0 1px 2px rgba(0, 0, 0, 0.6);
-    animation: letterReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    animation-delay: var(--delay);
+@keyframes slideInFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-110px);
+        filter: blur(8px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+        filter: blur(0);
+    }
+}
+
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.85);
+        filter: blur(6px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+    }
+}
+
+.anim-cafe-right {
+    animation: slideInFromRight 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
     opacity: 0;
     will-change: transform, opacity;
 }
 
-.hero-letter-space {
-    display: inline-block;
-    width: 0.35em;
+.anim-ancona-left {
+    animation: slideInFromLeft 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.25s forwards;
+    opacity: 0;
+    will-change: transform, opacity;
+}
+
+.anim-serpiente-fade {
+    animation: fadeInScale 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
+    opacity: 0;
+    will-change: transform, opacity;
 }
 
 /* 2. ENCABEZADO Y NAVEGACIÓN */
@@ -87,38 +126,29 @@ body {
     justify-content: space-between;
     align-items: center;
     color: #F7F5ED;
-    background: linear-gradient(180deg, rgba(15, 25, 18, 0.65) 0%, transparent 100%);
+    background: linear-gradient(180deg, rgba(10, 18, 12, 0.75) 0%, transparent 100%);
 }
 
-.mansion-sticky-header {
-    background: rgba(247, 245, 237, 0.96);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--mansion-border);
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Botón característico de La Mansión */
-.mansion-btn-primary {
-    background-color: var(--mansion-green) !important;
-    color: #F7F5ED !important;
-    border: 1px solid var(--mansion-green) !important;
-    border-radius: 6px !important;
+/* Botón WhatsApp */
+.mansion-btn-whatsapp {
+    background-color: #25D366 !important;
+    color: #ffffff !important;
+    border-radius: 9999px !important;
     text-transform: uppercase !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.12em !important;
-    transition: all 0.22s ease !important;
+    font-weight: 700 !important;
+    font-size: 0.75rem !important;
+    letter-spacing: 0.1em !important;
+    transition: all 0.25s ease !important;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
 }
 
-.mansion-btn-primary:hover {
-    background-color: var(--mansion-green-dark) !important;
-    border-color: var(--mansion-green-dark) !important;
-    color: #ffffff !important;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(111, 129, 106, 0.3);
+.mansion-btn-whatsapp:hover {
+    background-color: #1EBE5D !important;
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 6px 18px rgba(37, 211, 102, 0.5);
 }
 
 /* 3. BARRA DE CATEGORÍAS TIPO MENÚ / CARTA */
@@ -201,19 +231,4 @@ body {
 .expo-video-card:hover {
     border-color: var(--mansion-gold);
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-}
-
-/* Serpiente canvas animada */
-#header-serpent-stage {
-    position: relative;
-    width: 100%;
-    height: 38px;
-    overflow: hidden;
-    pointer-events: none;
-}
-
-#header-serpent-canvas {
-    width: 100%;
-    height: 100%;
-    display: block;
 }
