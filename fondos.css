@@ -56,11 +56,14 @@ body {
     filter: drop-shadow(0 3px 12px rgba(0, 0, 0, 0.65)) drop-shadow(0 1px 3px rgba(0, 0, 0, 0.9));
 }
 
-/* Animaciones de Entrada: 'CAFÉ' entra de la derecha, 'ANCONA' entra de la izquierda (3 segundos, nítido y sin mareos) */
+/* Animaciones de Entrada: 'CAFÉ' entra de la derecha, 'ANCONA' entra de la izquierda (3 segundos reales, perceptibles y fluidos) */
 @keyframes slideInFromRight {
     0% {
         opacity: 0;
-        transform: translateX(40px);
+        transform: translateX(105px);
+    }
+    20% {
+        opacity: 0.8;
     }
     100% {
         opacity: 1;
@@ -71,7 +74,10 @@ body {
 @keyframes slideInFromLeft {
     0% {
         opacity: 0;
-        transform: translateX(-40px);
+        transform: translateX(-105px);
+    }
+    20% {
+        opacity: 0.8;
     }
     100% {
         opacity: 1;
@@ -82,7 +88,10 @@ body {
 @keyframes fadeInScale {
     0% {
         opacity: 0;
-        transform: scale(0.92);
+        transform: scale(0.86);
+    }
+    25% {
+        opacity: 0.8;
     }
     100% {
         opacity: 1;
@@ -91,29 +100,32 @@ body {
 }
 
 .anim-cafe-right {
-    animation: slideInFromRight 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: slideInFromRight 3s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
     opacity: 0;
     will-change: transform, opacity;
 }
 
 .anim-ancona-left {
-    animation: slideInFromLeft 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: slideInFromLeft 3s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
     opacity: 0;
     will-change: transform, opacity;
 }
 
 .anim-serpiente-fade {
-    animation: fadeInScale 3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: fadeInScale 3s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
     opacity: 0;
     will-change: transform, opacity;
 }
 
-/* Optimización de animación para pantallas móviles (desplazamiento aún más sutil y suave) */
+/* Optimización de animación para pantallas móviles */
 @media (max-width: 640px) {
     @keyframes slideInFromRight {
         0% {
             opacity: 0;
-            transform: translateX(24px);
+            transform: translateX(60px);
+        }
+        20% {
+            opacity: 0.8;
         }
         100% {
             opacity: 1;
@@ -124,7 +136,10 @@ body {
     @keyframes slideInFromLeft {
         0% {
             opacity: 0;
-            transform: translateX(-24px);
+            transform: translateX(-60px);
+        }
+        20% {
+            opacity: 0.8;
         }
         100% {
             opacity: 1;
