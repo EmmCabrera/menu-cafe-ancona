@@ -109,15 +109,6 @@
         </div>
     </div>
 
-    <!-- Buscador de Platillos / Bebidas en la Carta -->
-    <div class="max-w-6xl mx-auto px-4 sm:px-8 pt-4 pb-2 w-full flex justify-between items-center">
-        <div class="relative w-full max-w-sm">
-            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-xs text-[#5C635B]"></i>
-            <input type="text" id="menu-search-input" placeholder="Buscar café, postre, panini u obra..." class="w-full bg-[#FCFBF7] border border-[#E5E0D4] rounded-full pl-9 pr-4 py-1.5 text-xs text-[#141615] placeholder-[#5C635B]/70 focus:outline-none focus:border-[#6F816A] transition-all font-mono">
-        </div>
-        <span class="font-mono text-[11px] text-[#5C635B] hidden sm:inline-block">PRECIOS EN MXN</span>
-    </div>
-
     <!-- Estado de Carga -->
     <div id="loading-state" class="flex-1 flex flex-col items-center justify-center py-20 relative z-10 px-8">
         <div class="animate-spin rounded-full h-8 w-8 border-2 border-[#6F816A] border-t-transparent mb-3"></div>
@@ -125,10 +116,10 @@
     </div>
 
     <!-- Contenedor de Promociones (Obras Especiales del Mes) -->
-    <div id="promos-container" class="max-w-6xl mx-auto px-4 sm:px-8 pt-2 pb-4 w-full hidden relative z-10">
+    <div id="promos-container" class="max-w-6xl mx-auto px-4 sm:px-8 pt-4 pb-4 w-full hidden relative z-10">
         <div class="flex items-center justify-between mb-3 pb-2 border-b border-[#E5E0D4]">
-            <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-[#C5A059]"></span>
+            <div class="flex items-center gap-2.5">
+                <img src="assets/serpiente_hd.png" alt="Café Ancona" class="h-5 sm:h-6 w-auto object-contain flex-shrink-0 filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.25)]">
                 <h2 class="font-titulo text-lg sm:text-xl font-bold uppercase tracking-wider text-[#141615]">Obras & Maridajes del Mes</h2>
             </div>
             <span class="font-mono text-[10px] text-[#C5A059] uppercase tracking-widest font-bold">ESPECIALES</span>
@@ -182,8 +173,9 @@
             </div>
         </div>
 
-        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center text-[10px] text-white/60 font-mono gap-2">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center text-[10px] text-white/60 font-mono gap-2 text-center sm:text-left">
             <span>© 2026 Café Ancona · Café & Galería de Arte.</span>
+            <span class="text-[#86efac]/90 font-bold tracking-widest uppercase">PRECIOS EN MXN (PESOS MEXICANOS)</span>
             <span>Todos los derechos reservados.</span>
         </div>
     </footer>
@@ -484,13 +476,11 @@
                     seccion.className = "mb-10 pt-4";
                     const listaProductos = Object.values(menuAgrupado[categoria]);
                     const esCatExposiciones = categoria.toLowerCase().includes('exposicion') || categoria.toLowerCase().includes('exposición');
-                    const sectionNumber = (index < 10 ? `0${index}` : `${index}`);
-
                     seccion.innerHTML = `
                         <!-- Encabezado de Sección en la Carta -->
-                        <div class="flex items-end justify-between mb-4 pb-2 border-b border-[#141615]">
-                            <div class="flex items-baseline gap-2">
-                                <span class="font-mono text-xs text-[#6F816A] font-bold">${sectionNumber}</span>
+                        <div class="flex items-center justify-between mb-4 pb-2 border-b border-[#141615]">
+                            <div class="flex items-center gap-2.5">
+                                <img src="assets/serpiente_hd.png" alt="Serpiente Café Ancona" class="h-6 sm:h-7 w-auto object-contain flex-shrink-0 filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.25)]">
                                 <h2 class="font-titulo text-xl sm:text-2xl font-bold uppercase tracking-wide text-[#141615]">${categoria}</h2>
                             </div>
                             ${esCatExposiciones 
