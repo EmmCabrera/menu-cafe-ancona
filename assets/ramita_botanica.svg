@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" fill="none">
+    <!-- Tallo principal curvado de olivo/laurel -->
+    <path d="M 5 22 C 35 24, 75 18, 115 12" stroke="#385845" stroke-width="1.8" stroke-linecap="round"/>
+    
+    <!-- Hojas estilizadas al estilo grabado botánico de Café Ancona -->
+    <!-- Hoja 1 (Punta) -->
+    <path d="M 115 12 C 110 9, 100 8, 96 11 C 102 14, 110 14, 115 12 Z" fill="#2d4a39" opacity="0.95"/>
+    <path d="M 100 10.5 L 112 12" stroke="#1d3326" stroke-width="0.6"/>
+
+    <!-- Hoja 2 (Arriba) -->
+    <path d="M 88 15 C 84 9, 74 6, 68 8 C 76 13, 83 14, 88 15 Z" fill="#3e634e" opacity="0.9"/>
+    
+    <!-- Hoja 3 (Abajo) -->
+    <path d="M 82 17 C 82 24, 75 29, 69 29 C 71 22, 77 18, 82 17 Z" fill="#2d4a39" opacity="0.95"/>
+
+    <!-- Hoja 4 (Arriba) -->
+    <path d="M 62 19 C 58 13, 49 11, 43 13 C 50 17, 57 18, 62 19 Z" fill="#466f58" opacity="0.88"/>
+
+    <!-- Hoja 5 (Abajo) -->
+    <path d="M 54 21 C 53 28, 46 32, 40 31 C 43 25, 49 22, 54 21 Z" fill="#33523f" opacity="0.92"/>
+
+    <!-- Hoja 6 (Arriba pequeña) -->
+    <path d="M 36 22 C 32 17, 25 16, 20 18 C 26 21, 31 22, 36 22 Z" fill="#3e634e" opacity="0.85"/>
+
+    <!-- Hoja 7 (Abajo pequeña) -->
+    <path d="M 28 23 C 27 29, 21 31, 16 30 C 19 26, 24 24, 28 23 Z" fill="#2d4a39" opacity="0.9"/>
+</svg>

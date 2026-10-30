@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café Ancona - Menú Digital | Café & Galería de Arte</title>
+
+    <!-- 1. CONEXIÓN AL CSS DE LIENZO, MARCO DE PIEDRA VOLCÁNICA Y GLASSMORPHISM -->
+    <link rel="stylesheet" href="fondos.css">
+
+    <!-- Tailwind CDN y Configuración de colores al óleo y botánicos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                cafe: {
+                  principal: 'transparent',
+                  tarjeta: 'rgba(255, 255, 255, 0.58)',
+                  acento: '#234a34',         /* Verde bosque botánico */
+                  sage: '#385945',           /* Verde salvia */
+                  dorado: '#b37e36',         /* Ocre dorado */
+                  texto: '#1c1e20',          /* Carbón volcánico profundo */
+                  mutado: '#4a443e',         /* Tono natural para descripciones */
+                  borde: 'rgba(255, 255, 255, 0.8)',
+                  bgPromo: '#eef5f0'    
+                }
+              },
+              fontFamily: {
+                sans: ['Montserrat', 'sans-serif'],
+                titulo: ['Cinzel', 'Playfair Display', 'serif'], 
+              }
+            }
+          }
+        }
+    </script>
+
+    <!-- Fuentes de Iconos y fuentes de texto de galería -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Lector de Google Sheets (PapaParse para compatibilidad) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scroll-width: none; }
+
+        /* Solución al glitch gráfico en el header inteligente */
+        #main-header {
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform-style: preserve-3d;
+        }
+        #top-info-block, #top-info-block * {
+            transform: translateZ(0);
+            -webkit-transform: translateZ(0);
+        }
+    </style>
+</head>
+<body class="bg-cafe-principal text-cafe-texto min-h-screen flex flex-col antialiased font-sans relative selection:bg-[#385945] selection:text-white">
+
+    <!-- Marco de Piedra Volcánica Continua (Basalto / Recinto Mexicano) -->
+    <div class="picture-frame-border" aria-hidden="true"></div>
+
+    <!-- Capa de Iluminación Cenital de Galería de Arte (Spotlight sobre el Lienzo) -->
+    <div class="gallery-lighting-layer" aria-hidden="true"></div>
+
+    <!-- Encabezado Inteligente (Sticky con Glassmorphism y Auto-Collapse) -->
+    <header id="main-header" class="bg-[#f7f2e7]/90 backdrop-blur-md fixed top-0 left-0 w-full z-50 shadow-sm border-b border-[#385945]/20 transition-transform duration-300 ease-out will-change-transform">
+        
+        <!-- Bloque de información con margen superior generoso para que el marco nunca tape el nombre -->
+        <div id="top-info-block" class="bg-transparent px-6 sm:px-10 md:px-12 pt-6 sm:pt-7 md:pt-8 pb-1 max-w-4xl mx-auto w-full">
+            <div class="flex flex-col items-center justify-center text-center w-full">
+                
+                <!-- Contenedor de Marca Flanqueado por Ramas Botánicas (Fiel al Caballete y Letrero) -->
+                <div class="flex items-center justify-center gap-1.5 sm:gap-3 md:gap-5 w-full max-w-lg mx-auto">
+                    <!-- Rama Botánica Izquierda -->
+                    <img src="assets/ramita_botanica.svg" alt="Rama botánica" class="w-8 sm:w-12 md:w-16 opacity-85 select-none pointer-events-none transform scale-x-[-1] flex-shrink-0" aria-hidden="true">
+
+                    <!-- Tipografía Oficial Café Ancona fiel a la foto del letrero -->
+                    <a href="https://www.instagram.com/cafe_ancona" target="_blank" class="hover:opacity-90 active:scale-95 transition-all inline-flex flex-col items-center justify-center text-center group flex-shrink-0" title="Visitar Instagram de Café Ancona">
+                        <span class="font-titulo text-[11px] sm:text-xs md:text-sm font-semibold tracking-[0.34em] text-[#34483a] uppercase">CAFÉ</span>
+                        <h1 class="font-titulo text-2xl sm:text-3xl md:text-4xl font-black tracking-[0.14em] text-[#1a1c1e] leading-tight my-0.5 paint-title">ANCONA</h1>
+                        <div class="w-full max-w-[160px] sm:max-w-[210px] h-[1.5px] bg-[#385945]/40 my-1 rounded-full"></div>
+                        <span class="text-[8px] sm:text-[10px] md:text-xs font-semibold tracking-[0.24em] text-[#2f4d3b] uppercase">CAFÉ & GALERÍA DE ARTE</span>
+                    </a>
+
+                    <!-- Rama Botánica Derecha -->
+                    <img src="assets/ramita_botanica.svg" alt="Rama botánica" class="w-8 sm:w-12 md:w-16 opacity-85 select-none pointer-events-none flex-shrink-0" aria-hidden="true">
+                </div>
+
+                <!-- Serpiente ondulante situada abajo del texto, recorriendo de derecha a izquierda en bucle continuo -->
+                <div id="header-serpent-stage" class="w-full max-w-xl mx-auto">
+                    <canvas id="header-serpent-canvas"></canvas>
+                </div>
+
+            </div>
+            <!-- Pincelada divisoria fina en verde botánico suave -->
+            <div class="w-full border-b border-[#385945]/20 mt-1"></div>
+        </div>
+
+        <!-- Barra de Categorías Dinámica con márgenes laterales protegidos del marco -->
+        <div id="categories-nav" class="font-titulo max-w-4xl mx-auto flex gap-6 md:gap-8 overflow-x-auto py-3 px-8 sm:px-10 md:px-12 no-scrollbar justify-start md:justify-center items-center bg-transparent select-none"></div>
+    </header>
+
+    <div id="header-spacer" class="w-full transition-all duration-300"></div>
+
+    <!-- Estado de Carga -->
+    <div id="loading-state" class="flex-1 flex flex-col items-center justify-center py-20 relative z-10 px-8">
+        <div class="animate-spin rounded-full h-9 w-9 border-b-2 border-cafe-acento mb-3"></div>
+        <p class="text-cafe-mutado text-xs font-medium italic">Preparando la paleta de colores y el café...</p>
+    </div>
+
+    <!-- Contenedor de Promociones (Obras Principales) con márgenes protegidos -->
+    <div id="promos-container" class="max-w-4xl mx-auto px-8 sm:px-10 md:px-12 pt-6 pb-4 w-full hidden relative z-10">
+        <h2 class="font-titulo text-2xl md:text-3xl paint-section-title text-center mb-6 pb-2 font-bold tracking-wide">Especialidades & Obras del Mes</h2>
+        <div id="promos-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4"></div>
+    </div>
+
+    <!-- Contenedor Principal de Alimentos y Bebidas -->
+    <main id="menu-container" class="max-w-4xl text-cafe-texto mx-auto px-8 sm:px-10 md:px-12 py-4 w-full flex-1 hidden relative z-10"></main>
+
+    <!-- Pie de página Estilo Galería Botánica -->
+    <footer class="w-full bg-[#f2eee3]/85 backdrop-blur-md py-8 text-center text-xs text-cafe-mutado border-t border-[#385945]/20 mt-auto flex flex-col items-center gap-3 relative z-10 px-8 mb-4">
+        
+        <!-- Eslogan en el Footer con estilo de grabado al óleo -->
+        <div class="flex items-center justify-center gap-1 select-none">
+            <h3 class="font-titulo font-bold text-lg md:text-xl uppercase tracking-wider text-cafe-texto paint-title">
+                El arte de saborear cada momento
+            </h3>
+        </div>
+
+        <p class="font-medium text-cafe-mutado">© Café Ancona · Café & Galería de Arte. Todos los derechos reservados.</p>
+        
+        <a href="https://www.instagram.com/cafe_ancona" target="_blank" class="inline-flex items-center gap-2 text-[#2d5438] hover:text-cafe-texto transition-colors font-semibold text-sm">
+            <i class="fa-brands fa-instagram text-base"></i>
+            <span>@cafe_ancona</span>
+        </a>
+    </footer>
+
+    <!-- MODAL LIGHTBOX DE VIDEO PARA EXPOSICIONES DE ARTE -->
+    <div id="video-modal" class="fixed inset-0 z-[1000] hidden items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md opacity-0 transition-opacity duration-300" onclick="if(event.target === this) cerrarModalVideo()">
+        <div class="relative w-full max-w-3xl bg-[#1c1e20] rounded-2xl overflow-hidden shadow-2xl border border-white/20 transform scale-95 transition-transform duration-300" id="video-modal-card">
+            <!-- Barra superior del modal -->
+            <div class="flex items-center justify-between px-5 py-3.5 bg-[#25282b] border-b border-white/10">
+                <div class="flex items-center gap-2.5 text-[#86efac] min-w-0 pr-3">
+                    <i class="fa-solid fa-film text-sm flex-shrink-0"></i>
+                    <h3 id="video-modal-title" class="font-titulo text-sm sm:text-base font-bold text-white tracking-wide truncate">Exposición de Arte</h3>
+                </div>
+                <button onclick="cerrarModalVideo()" class="text-white/70 hover:text-white w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors flex-shrink-0" title="Cerrar video">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <!-- Contenedor del reproductor 16:9 -->
+            <div class="relative w-full aspect-video bg-black flex items-center justify-center" id="video-player-container">
+                <!-- Iframe o video se inyecta dinámicamente -->
+            </div>
+            <!-- Pie con información de la obra / artista -->
+            <div class="p-4 sm:p-5 bg-[#181a1c] text-xs text-[#b8b0a2] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                <p id="video-modal-desc" class="italic flex-1 break-words">Café Ancona · Café & Galería de Arte</p>
+                <span class="text-[10px] uppercase tracking-wider text-[#86efac] font-semibold bg-[#1e3b2b] px-2.5 py-1 rounded border border-[#385945]/40 flex-shrink-0">Galería en Vivo</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón Flotante de WhatsApp ubicado con holgura dentro del marco -->
+    <a href="https://wa.me/?text=Hola%20Café%20Ancona,%20quisiera%20hacer%20un%20pedido%20o%20reservación" target="_blank" class="fixed bottom-7 right-7 sm:bottom-9 sm:right-9 w-13 h-13 md:w-14 md:h-14 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-lg z-50 hover:scale-105 transition-transform duration-300" title="Contactar por WhatsApp">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+    </a>
+
+    <!-- LÓGICA DEL MENÚ, SMART HEADER Y SERPIENTE ONDULANTE EN EL ENCABEZADO -->
+    <script>
+        // =========================================================================
+        // 1. SERPIENTE ONDULANTE EN EL HEADER (LARGA, ONDULACIÓN FLUIDA Y ESTELA DORADA)
+        // =========================================================================
+        (function initHeaderSerpent() {
+            const canvas = document.getElementById('header-serpent-canvas');
+            const stage = document.getElementById('header-serpent-stage');
+            if (!canvas || !stage) return;
+            const ctx = canvas.getContext('2d');
+
+            const serpentImg = new Image();
+            serpentImg.src = 'assets/serpiente_extra_larga.png';
+
+            let dpr = window.devicePixelRatio || 1;
+            let width = 0;
+            let height = 0;
+
+            function resizeCanvas() {
+                dpr = window.devicePixelRatio || 1;
+                width = stage.clientWidth;
+                height = stage.clientHeight || 52;
+                canvas.width = width * dpr;
+                canvas.height = height * dpr;
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                ctx.scale(dpr, dpr);
+            }
+
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            let snakeX = 0;
+            const speed = 1.12;
+            let waveTime = 0;
+            const numSlices = 52; // Articulación ultra suave
+
+            serpentImg.onload = () => {
+                snakeX = width + 60;
+            };
+
+            function drawLoop() {
+                ctx.clearRect(0, 0, width, height);
+
+                if (serpentImg.complete && serpentImg.naturalWidth > 0) {
+                    const imgW = serpentImg.naturalWidth;
+                    const imgH = serpentImg.naturalHeight;
+
+                    // Proporciones alargadas y elegantes
+                    const isMobile = width < 640;
+                    const bodyH = isMobile ? Math.min(30, height * 0.68) : Math.min(35, height * 0.72);
+                    const snakeLen = Math.max(160, bodyH * 4.6);
+                    const centerY = height / 2;
+
+                    snakeX -= speed;
+                    if (snakeX < -snakeLen - 60) {
+                        snakeX = width + 60;
+                    }
+
+                    waveTime += 0.082;
+
+                    // Render de la serpiente articulada con sombra de profundidad al óleo
+                    ctx.save();
+                    ctx.globalAlpha = 1.0;
+                    ctx.shadowColor = 'rgba(40, 23, 14, 0.24)';
+                    ctx.shadowBlur = 5;
+                    ctx.shadowOffsetY = 2;
+
+                    const sliceSrcW = imgW / numSlices;
+                    const sliceDrawW = (snakeLen / numSlices) + 1.25;
+
+                    for (let i = 0; i < numSlices; i++) {
+                        const t = i / (numSlices - 1);
+                        const sliceX = snakeX + (t * snakeLen);
+
+                        // Cabeza firme y cuerpo con ondulación sinusoidal natural y viajera
+                        let waveAmp = 0;
+                        if (t > 0.16) {
+                            const bodyProgress = (t - 0.16) / 0.84;
+                            waveAmp = 5.6 * Math.pow(bodyProgress, 1.2);
+                        }
+
+                        const waveY = Math.sin(waveTime + t * 5.8) * waveAmp;
+
+                        let sliceAngle = 0;
+                        if (t > 0.16) {
+                            sliceAngle = Math.cos(waveTime + t * 5.8) * (waveAmp * 0.042);
+                        }
+
+                        const sx = i * sliceSrcW;
+
+                        ctx.save();
+                        ctx.translate(sliceX, centerY + waveY);
+                        ctx.rotate(sliceAngle);
+
+                        ctx.drawImage(
+                            serpentImg,
+                            sx, 0, sliceSrcW, imgH,
+                            -sliceDrawW / 2, -bodyH / 2, sliceDrawW, bodyH
+                        );
+                        ctx.restore();
+                    }
+
+                    ctx.restore();
+                }
+
+                requestAnimationFrame(drawLoop);
+            }
+
+            requestAnimationFrame(drawLoop);
+        })();
+
+        // =========================================================================
+        // 2. DATOS PREDETERMINADOS DE CAFÉ ANCONA (ESTILO LIENZO & PALETA AL ÓLEO)
+        // =========================================================================
+        const DEFAULT_MENU_ROWS = [
+            // PROMOS
+            { categoria: 'Promociones', nombre: 'Combo Despertar Ancona', descripcion: 'Cappuccino o Flat White a elección + Croissant hojaldrado de almendras francesas.', precio: '$115', tamano: '', variante: '', estado: 'activo' },
+            { categoria: 'Promociones', nombre: 'Experiencia Galería & Maridaje', descripcion: 'Cold Brew infusionado 20 hrs con romero y toronja + Tarta Vasca quemada con frutos rojos.', precio: '$145', tamano: '', variante: '', estado: 'activo' },
+            { categoria: 'Promociones', nombre: 'Brunch Galería Completo', descripcion: 'Chilaquiles Ancona con Burrata fresca entera + Café de especialidad americano o espresso.', precio: '$175', tamano: '', variante: '', estado: 'activo' },
+
+            // CAFÉ DE ESPECIALIDAD
+            { categoria: 'Café de Especialidad', nombre: 'Espresso Doble Ancona', descripcion: 'Doble extracción de nuestro microlote Chiapas lavado. Notas a chocolate amargo, avellana y mandarina.', precio: '$45', tamano: '', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=300&q=80' },
+            { categoria: 'Café de Especialidad', nombre: 'Flat White Sedoso', descripcion: 'Doble ristretto con microespuma de leche aterciopelada a 62°C.', precio: '$68', tamano: '6 oz', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1577968897966-3d4325b36b61?auto=format&fit=crop&w=300&q=80' },
+            { categoria: 'Café de Especialidad', nombre: 'Flat White Sedoso', descripcion: 'Doble ristretto con microespuma de leche aterciopelada a 62°C.', precio: '$78', tamano: '8 oz', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1577968897966-3d4325b36b61?auto=format&fit=crop&w=300&q=80' },
+            { categoria: 'Café de Especialidad', nombre: 'Latte Lavanda & Miel de Azahar', descripcion: 'Bebida insignia: infusión de flores orgánicas de lavanda, miel de azahar local y espresso.', precio: '$78', tamano: 'Caliente', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=300&q=80' },
+            { categoria: 'Café de Especialidad', nombre: 'Latte Lavanda & Miel de Azahar', descripcion: 'Bebida insignia: infusión de flores orgánicas de lavanda, miel de azahar local y espresso.', precio: '$82', tamano: 'Iced', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=300&q=80' },
+            { categoria: 'Café de Especialidad', nombre: 'Cappuccino Clásico', descripcion: 'Equilibrio perfecto de espresso, leche evaporada y densa corona de crema.', precio: '$65', tamano: '8 oz', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=300&q=80' },
+            { categoria: 'Café de Especialidad', nombre: 'Cappuccino Clásico', descripcion: 'Equilibrio perfecto de espresso, leche evaporada y densa corona de crema.', precio: '$75', tamano: '12 oz', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=300&q=80' },
+            { categoria: 'Café de Especialidad', nombre: 'Filtrado Chemex Artesanal', descripcion: 'Método de goteo manual para una taza limpia, brillante y aromática (350ml).', precio: '$80', tamano: '', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=300&q=80' },
+
+            // BEBIDAS FRÍAS & COLD BREW
+            { categoria: 'Cold Brew & Refrescantes', nombre: 'Cold Brew Tónico con Romero', descripcion: 'Café reposado en frío 20 hrs con agua tónica premium, rodaja de toronja y romero.', precio: '$75', tamano: '', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?auto=format&fit=crop&w=300&q=80' },
+            { categoria: 'Cold Brew & Refrescantes', nombre: 'Iced Dulce de Leche Macchiato', descripcion: 'Leche fría batida sobre hielo, cascada de espresso y caramelo artesanal.', precio: '$78', tamano: '', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=300&q=80' },
+            { categoria: 'Cold Brew & Refrescantes', nombre: 'Affogato Galería', descripcion: 'Helado artesanal de vainilla de Papantla bañado en un shot ardiente de espresso recién molido.', precio: '$70', tamano: '', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1594910069411-78901eb231c6?auto=format&fit=crop&w=300&q=80' },
+
+            // MATCHAS & TÉS
+            { categoria: 'Matcha & Tés', nombre: 'Matcha Ceremonial Latte (Uji)', descripcion: 'Matcha japonés grado ceremonial batido con chasen de bambú y leche a elección.', precio: '$85', tamano: 'Caliente', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=300&q=80' },
+            { categoria: 'Matcha & Tés', nombre: 'Matcha Ceremonial Latte (Uji)', descripcion: 'Matcha japonés grado ceremonial batido con chasen de bambú y leche a elección.', precio: '$90', tamano: 'Iced', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=300&q=80' },
+            { categoria: 'Matcha & Tés', nombre: 'Chai Masala Suculento', descripcion: 'Té negro Assam cocinado con canela en rama, cardamomo, clavo, jengibre y miel.', precio: '$75', tamano: 'Caliente', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=300&q=80' },
+            { categoria: 'Matcha & Tés', nombre: 'Chai Masala Suculento', descripcion: 'Té negro Assam cocinado con canela en rama, cardamomo, clavo, jengibre y miel.', precio: '$80', tamano: 'Iced', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=300&q=80' },
+
+            // PANADERÍA & REPOSTERÍA
+            { categoria: 'Panadería & Repostería', nombre: 'Croissant Bicolor de Almendras', descripcion: '100% mantequilla de Normandía, crema frangipane y almendras tostadas fileteadas.', precio: '$68', tamano: '', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=300&q=80' },
+            { categoria: 'Panadería & Repostería', nombre: 'Tarta de Queso Vasca Quemada', descripcion: 'Centro cremoso y fundente con corteza tostada al horno y coulis de moras silvestres.', precio: '$85', tamano: '', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&w=300&q=80' },
+            { categoria: 'Panadería & Repostería', nombre: 'Pain au Chocolat de Origen 70%', descripcion: 'Hojaldre crujiente con barras de chocolate oscuro oaxaqueño al 70%.', precio: '$60', tamano: '', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1608198093002-ad4e005484ec?auto=format&fit=crop&w=300&q=80' },
+
+            // BOCADOS DEL JARDÍN (Fiel al menú del caballete)
+            { categoria: 'Bocados del Jardín', nombre: 'Avocado Toast en Masa Madre', descripcion: 'Hogaza tostada, puré de aguacate hass al limón, huevo poché de granja y dukkah.', precio: '$125', tamano: '', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=300&q=80' },
+            { categoria: 'Bocados del Jardín', nombre: 'Chilaquiles Ancona con Burrata', descripcion: 'Totopos de maíz nixtamalizado, salsa verde tatemada, crema de rancho y burrata entera 125g.', precio: '$145', tamano: 'Sencillos', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1640719028984-5142fa66183f?auto=format&fit=crop&w=300&q=80' },
+            { categoria: 'Bocados del Jardín', nombre: 'Chilaquiles Ancona con Burrata', descripcion: 'Totopos de maíz nixtamalizado, salsa verde tatemada, crema de rancho y burrata entera 125g.', precio: '$175', tamano: 'Con Cecina', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1640719028984-5142fa66183f?auto=format&fit=crop&w=300&q=80' },
+            { categoria: 'Bocados del Jardín', nombre: 'French Toast Brioche Caramelizado', descripcion: 'Brioche grueso bañado en crema de vainilla, mantequilla avellanada y frutos rojos.', precio: '$130', tamano: '', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&w=300&q=80' },
+
+            // PANINIS & ESPECIALIDADES
+            { categoria: 'Paninis & Especialidades', nombre: 'Panini Prosciutto di Parma & Pesto', descripcion: 'Focaccia artesanal con romero, prosciutto curado, mozzarella fior di latte y pesto fresco.', precio: '$135', tamano: '', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&w=300&q=80' },
+            { categoria: 'Paninis & Especialidades', nombre: 'Panini Silvestre de Portobello & Trufa', descripcion: 'Setas y portobellos salteados, queso gouda fundido y toque de aceite de trufa blanca.', precio: '$128', tamano: '', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&w=300&q=80' },
+
+            // COLECCIÓN GALERÍA DE ARTE
+            { categoria: 'Galería de Arte', nombre: 'Obra Original: "El Despertar de la Serpiente"', descripcion: 'Técnica mixta sobre lienzo de lino crudo con aplicaciones de pan de oro de 24k. Medidas 90x120cm.', precio: '$4800', tamano: 'Pieza Única', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=300&q=80' },
+            { categoria: 'Galería de Arte', nombre: 'Taza de Gres Café Ancona (Colección)', descripcion: 'Pieza torneada a mano por alfareros con esmalte verde bosque y filo bañado en oro.', precio: '$320', tamano: '8 oz', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=300&q=80' },
+
+            // SECCIÓN EXPOSICIONES (ADMINISTRABLE: SE PUEDEN AGREGAR O QUITAR EXPOSICIONES)
+            // Solo la primera exposición incluye video, las demás muestran sus carteles oficiales de Café Ancona
+            { 
+                categoria: 'Exposiciones', 
+                nombre: 'Exposición Pictórica: Emmanuel Paloméc', 
+                descripcion: 'Inauguración: Jueves 8 de Octubre, 18:00 hrs. Música en vivo a cargo del Dúo de Cuerdas (Emmanuel García - Violonchelo, Ángel Gómez - Violín). Temporada del 8 de Octubre al 8 de Noviembre de 5 a 10 PM. Antonio Ancona #19, Cuajimalpa.', 
+                precio: 'Entrada Libre', 
+                tamano: '', 
+                variante: '', 
+                estado: 'activo', 
+                imagen: 'assets/expo_emmanuel_palomec.png', 
+                video: 'https://www.youtube.com/watch?v=ScMzIvxBSi4' 
+            },
+            { 
+                categoria: 'Exposiciones', 
+                nombre: 'Proceso de Taller: "El Rostro de Jade" (Emmanuel Paloméc)', 
+                descripcion: 'Estudio anatómico prehispánico y técnica mixta al óleo sobre lienzo. Obra en desarrollo creada directamente en el taller de arte de Café Ancona.', 
+                precio: 'Obra en Taller', 
+                tamano: '', 
+                variante: '', 
+                estado: 'activo', 
+                imagen: 'assets/expo_mascara_jade.jpg', 
+                video: '' 
+            },
+            { 
+                categoria: 'Exposiciones', 
+                nombre: 'Exposición de Pintura: Gabriel Acosta', 
+                descripcion: 'Inauguración con Vino de Honor: Jueves 20 de Agosto, 18:00 hrs. Colección de obras al óleo en gran formato exhibidas en las salas de Café Ancona.', 
+                precio: 'Vino de Honor', 
+                tamano: '', 
+                variante: '', 
+                estado: 'activo', 
+                imagen: 'assets/expo_gabriel_acosta.png', 
+                video: '' 
+            }
+        ];
+
+        let isHeaderCollapsed = false;
+        let isProgrammaticScrolling = false;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchMenuData();
+            initSmartHeader();
+        });
+
+        // Smart Header con detección de scroll
+        function initSmartHeader() {
+            let lastScrollY = window.scrollY;
+            const mainHeader = document.getElementById('main-header');
+            const topInfoBlock = document.getElementById('top-info-block');
+            const spacer = document.getElementById('header-spacer');
+
+            function ajustarEspaciador() { 
+                if (mainHeader && spacer) {
+                    spacer.style.height = mainHeader.offsetHeight + 'px'; 
+                }
+            }
+            setTimeout(ajustarEspaciador, 300);
+            window.addEventListener('resize', ajustarEspaciador);
+
+            window.addEventListener('scroll', () => {
+                if (isProgrammaticScrolling) return;
+                const currentScrollY = window.scrollY;
+                const delta = currentScrollY - lastScrollY;
+                const infoHeight = topInfoBlock ? topInfoBlock.offsetHeight : 0;
+
+                if (Math.abs(delta) < 10 || currentScrollY < 0) return;
+
+                if (delta > 0 && currentScrollY > infoHeight) {
+                    if (!isHeaderCollapsed) {
+                        mainHeader.style.transform = `translateY(-${infoHeight}px)`;
+                        isHeaderCollapsed = true;
+                    }
+                } else if (delta < 0) {
+                    if (isHeaderCollapsed) {
+                        mainHeader.style.transform = 'translateY(0)';
+                        isHeaderCollapsed = false;
+                    }
+                }
+                lastScrollY = currentScrollY;
+            }, { passive: true });
+        }
+
+        // Configuración de Google Sheets (Pega aquí el enlace 'Publicar en la Web' en formato CSV)
+        const GOOGLE_SHEET_CSV_URL = '';
+
+        function fetchMenuData() {
+            if (GOOGLE_SHEET_CSV_URL && GOOGLE_SHEET_CSV_URL.trim().startsWith('http')) {
+                Papa.parse(GOOGLE_SHEET_CSV_URL.trim(), {
+                    download: true,
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        if (results.data && results.data.length > 0) {
+                            procesarYRenderizar(results.data);
+                        } else {
+                            procesarYRenderizar(DEFAULT_MENU_ROWS);
+                        }
+                    },
+                    error: function(err) {
+                        console.warn('Error al leer Google Sheets, utilizando datos locales:', err);
+                        procesarYRenderizar(DEFAULT_MENU_ROWS);
+                    }
+                });
+            } else {
+                setTimeout(() => {
+                    procesarYRenderizar(DEFAULT_MENU_ROWS);
+                }, 300);
+            }
+        }
+
+        function limpiarClave(key) { 
+            return key.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim(); 
+        }
+
+        // =========================================================================
+        // PROCESADOR DE ENLACES DE VIDEO (YOUTUBE, VIMEO, MP4 / WEBM DIRECTO)
+        // Permite pasar enlaces de video desde Google Sheets o CSV igual que imágenes
+        // =========================================================================
+        function procesarUrlVideo(url) {
+            if (!url || typeof url !== 'string') return null;
+            url = url.trim();
+            if (!url) return null;
+
+            // YouTube: enlaces estándar, cortos, embed y shorts
+            const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|shorts\/|watch\?.+&v=))([\w-]{11})/i);
+            if (ytMatch) {
+                return {
+                    tipo: 'youtube',
+                    id: ytMatch[1],
+                    embedUrl: `https://www.youtube-nocookie.com/embed/${ytMatch[1]}?autoplay=1&rel=0&modestbranding=1`,
+                    thumbUrl: `https://img.youtube.com/vi/${ytMatch[1]}/hqdefault.jpg`,
+                    urlOriginal: url
+                };
+            }
+
+            // Vimeo
+            const vimeoMatch = url.match(/vimeo\.com\/(?:video\/)?(\d+)/i);
+            if (vimeoMatch) {
+                return {
+                    tipo: 'vimeo',
+                    id: vimeoMatch[1],
+                    embedUrl: `https://player.vimeo.com/video/${vimeoMatch[1]}?autoplay=1&color=385945`,
+                    thumbUrl: '',
+                    urlOriginal: url
+                };
+            }
+
+            // Archivo de video directo (.mp4, .webm, .mov, etc.)
+            if (url.match(/\.(mp4|webm|ogg|mov)(\?.*)?$/i)) {
+                return {
+                    tipo: 'directo',
+                    embedUrl: url,
+                    thumbUrl: '',
+                    urlOriginal: url
+                };
+            }
+
+            return null;
+        }
+
+        function procesarYRenderizar(filas) {
+            if (!filas || filas.length === 0) return;
+            const menuAgrupado = {};
+            const listaPromos = [];
+
+            filas.forEach(row => {
+                const f = {};
+                for (let key in row) f[limpiarClave(key)] = row[key] ? row[key].toString().trim() : '';
+                if (f.estado.toLowerCase() !== 'activo' || !f.nombre) return;
+
+                const videoLink = f.video || f.linkvideo || f.urlvideo || f.videourl || '';
+
+                if (f.categoria.toLowerCase().includes('promo')) {
+                    listaPromos.push({ 
+                        nombre: f.nombre, 
+                        descripcion: f.descripcion, 
+                        precio: f.precio,
+                        video: videoLink
+                    });
+                    return;
+                }
+
+                if (!menuAgrupado[f.categoria]) menuAgrupado[f.categoria] = {};
+                if (!menuAgrupado[f.categoria][f.nombre]) {
+                    menuAgrupado[f.categoria][f.nombre] = {
+                        nombre: f.nombre,
+                        descripcion: f.descripcion,
+                        imagen: f.imagen,
+                        video: videoLink,
+                        variaciones: []
+                    };
+                }
+                menuAgrupado[f.categoria][f.nombre].variaciones.push({ 
+                    tamano: f.tamano, 
+                    variante: f.variantes || f.variante, 
+                    precio: f.precio 
+                });
+            });
+
+            construirInterfaz(listaPromos, menuAgrupado);
+        }
+
+        function construirInterfaz(promos, menuAgrupado) {
+            const navContainer = document.getElementById('categories-nav');
+            const menuContainer = document.getElementById('menu-container');
+            const promosContainer = document.getElementById('promos-container');
+            const promosGrid = document.getElementById('promos-grid');
+            const loadingState = document.getElementById('loading-state');
+
+            navContainer.innerHTML = ''; 
+            menuContainer.innerHTML = ''; 
+            promosGrid.innerHTML = '';
+
+            // Renderizar Promociones con efecto Glassmorphism
+            if (promos.length > 0) {
+                promosContainer.classList.remove('hidden');
+                promos.forEach(p => {
+                    const card = document.createElement('div');
+                    card.className = "paint-card paint-card-special rounded-2xl p-5 flex flex-col justify-between shadow-sm relative overflow-hidden min-h-[130px] font-sans";
+                    card.innerHTML = `
+                        <div class="absolute top-0 left-0 bg-[#1e3b2b] text-[#eaf2ec] font-bold text-[9px] tracking-widest px-3 py-1 rounded-br-xl uppercase shadow flex items-center gap-1">
+                            <i class="fa-solid fa-leaf text-[8px] text-[#86efac]"></i>
+                            <span>OBRA ESPECIAL</span>
+                        </div>
+                        <div class="mt-3 flex-1 min-w-0">
+                            <h3 class="font-bold text-base md:text-lg text-cafe-texto leading-tight break-words paint-title">${p.nombre}</h3>
+                            ${p.descripcion ? `<p class="text-xs text-cafe-mutado mt-1.5 leading-relaxed italic break-words">${p.descripcion}</p>` : ''}
+                        </div>
+                        <div class="mt-3 text-right">
+                            <span class="paint-price-tag font-bold text-base md:text-lg px-3 py-1 rounded-lg">${formatearPrecio(p.precio)}</span>
+                        </div>
+                    `;
+                    promosGrid.appendChild(card);
+                });
+            }
+
+            const categories = Object.keys(menuAgrupado);
+            if (promos.length > 0) categories.unshift('Promociones');
+
+            // Paleta botánica y mineral para la barra de navegación (Verdes profundos y tonos tierra)
+            const pigmentColors = ['#1e3b2b', '#2d5438', '#385945', '#524334', '#1f3e4d', '#40634f', '#6b4f38'];
+
+            categories.forEach((categoria, index) => {
+                const catId = `seccion-${index}`;
+                const btn = document.createElement('button');
+                const colorCategoria = pigmentColors[index % pigmentColors.length];
+
+                btn.className = `text-2xl md:text-3xl whitespace-nowrap hover:scale-105 transition-all duration-200 active:scale-95 px-2.5`;
+                btn.style.color = colorCategoria; 
+                btn.innerText = categoria;
+
+                if (index !== 0) btn.style.opacity = '0.55';
+
+                btn.onclick = () => {
+                    document.querySelectorAll('#categories-nav button').forEach(b => { 
+                        b.style.opacity = '0.55';
+                        b.style.transform = 'scale(1)';
+                    });
+                    btn.style.opacity = '1';
+                    btn.style.transform = 'scale(1.06)';
+
+                    isProgrammaticScrolling = true;
+
+                    const target = (categoria === 'Promociones') ? promosContainer : document.getElementById(catId);
+                    const mainHeader = document.getElementById('main-header');
+                    const topInfoBlock = document.getElementById('top-info-block');
+                    const visibleHeaderHeight = mainHeader.offsetHeight - (isHeaderCollapsed ? topInfoBlock.offsetHeight : 0);
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - visibleHeaderHeight - 15;
+
+                    window.scrollTo({ top: targetPosition, behavior: "smooth" });
+                    setTimeout(() => { isProgrammaticScrolling = false; }, 800);
+                };
+                navContainer.appendChild(btn);
+
+                if (categoria !== 'Promociones') {
+                    const seccion = document.createElement('section');
+                    seccion.id = catId; 
+                    seccion.className = "mb-10 pt-4";
+                    const listaProductos = Object.values(menuAgrupado[categoria]);
+                    const esCatExposiciones = categoria.toLowerCase().includes('exposicion') || categoria.toLowerCase().includes('exposición');
+
+                    seccion.innerHTML = `
+                        <h2 class="font-titulo text-2xl md:text-3xl paint-section-title pb-2 mb-4 tracking-wide uppercase font-bold flex items-center justify-between">
+                            <span>${categoria}</span>
+                            ${esCatExposiciones ? '<span class="text-xs font-sans font-medium text-[#2f4d3b] tracking-normal normal-case flex items-center gap-1.5 bg-[#eef5f0]/85 px-3 py-1 rounded-lg border border-[#385945]/25"><i class="fa-solid fa-palette text-[#385945]"></i> Galería en Sala</span>' : ''}
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            ${listaProductos.map(item => {
+                                const videoInfo = procesarUrlVideo(item.video) || procesarUrlVideo(item.imagen);
+                                const tieneImagen = item.imagen && item.imagen.trim().length > 0 && !procesarUrlVideo(item.imagen);
+                                let preciosHTML = '';
+
+                                if (item.variaciones.length === 1 && !item.variaciones[0].tamano && !item.variaciones[0].variante) {
+                                    preciosHTML = `<span class="paint-price-tag font-bold text-base whitespace-nowrap px-2.5 py-1 rounded-lg">${formatearPrecio(item.variaciones[0].precio)}</span>`;
+                                } else {
+                                    preciosHTML = `
+                                        <div class="flex flex-col gap-2 text-right items-end flex-shrink-0 max-w-[55%]">
+                                            ${item.variaciones.map(v => {
+                                                let etiqueta = v.tamano && v.variante ? `${v.tamano} / ${v.variante}` : (v.tamano || v.variante || '');
+                                                return `
+                                                    <div class="flex items-start gap-2 justify-end w-full">
+                                                        ${etiqueta ? `<span class="text-[10px] bg-[#eef5f0]/85 text-[#1e3b2b] px-2 py-0.5 rounded border border-[#385945]/30 font-medium backdrop-blur-sm">${etiqueta}</span>` : ''}
+                                                        <span class="paint-price-tag font-bold text-sm md:text-base whitespace-nowrap px-2 py-0.5 rounded-lg">${formatearPrecio(v.precio)}</span>
+                                                    </div>
+                                                `;
+                                            }).join('')}
+                                        </div>
+                                    `;
+                                }
+
+                                const nombreEsc = item.nombre.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                                const descEsc = (item.descripcion || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
+                                // 1. TARJETA DE EXPOSICIÓN CON VIDEO (Widescreen 16:9 - Solo la primera exposición)
+                                if (videoInfo) {
+                                    const posterImg = tieneImagen ? item.imagen.trim() : (videoInfo.thumbUrl || 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=600&q=80');
+                                    const urlEsc = videoInfo.embedUrl.replace(/'/g, "\\'");
+
+                                    return `
+                                        <div class="paint-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-sm relative overflow-hidden font-sans col-span-1 md:col-span-2 group border border-white/80">
+                                            <!-- Video Thumbnail 16:9 con Botón Play Glassmorphism -->
+                                            <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black/90 shadow-md cursor-pointer mb-3.5 group/video" onclick="abrirModalExposicion('${nombreEsc}', '${urlEsc}', '${videoInfo.tipo}', '${descEsc}')">
+                                                <img src="${posterImg}" alt="${item.nombre}" class="w-full h-full object-cover transition-transform duration-500 group-hover/video:scale-105 opacity-90">
+                                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent flex items-center justify-center">
+                                                    <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#1e3b2b]/90 border border-[#86efac]/50 text-white flex items-center justify-center shadow-2xl backdrop-blur-md transform transition-all duration-300 group-hover/video:scale-110 group-hover/video:bg-[#2d5438]">
+                                                        <i class="fa-solid fa-play ml-1 text-lg sm:text-xl text-[#86efac]"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="absolute top-3 left-3 bg-[#1c1e20]/80 text-[#eaf2ec] text-[10px] font-bold px-2.5 py-1 rounded-md border border-white/10 backdrop-blur-md flex items-center gap-1.5 uppercase tracking-wider">
+                                                    <i class="fa-solid fa-film text-[#86efac]"></i>
+                                                    <span>Exposición con Video</span>
+                                                </div>
+                                                <div class="absolute bottom-3 right-3 bg-black/70 text-white/90 text-[10px] font-medium px-2.5 py-1 rounded backdrop-blur-sm flex items-center gap-1.5">
+                                                    <i class="fa-solid fa-expand text-[9px]"></i>
+                                                    <span>Reproducir Exposición</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Información de la Obra y Acción -->
+                                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3">
+                                                <div class="flex-1 min-w-0">
+                                                    <h3 class="font-bold text-base md:text-xl text-cafe-texto leading-snug break-words paint-title">${item.nombre}</h3>
+                                                    ${item.descripcion ? `<p class="text-cafe-mutado text-xs sm:text-sm leading-relaxed mt-1.5 italic">${item.descripcion}</p>` : ''}
+                                                </div>
+                                                <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end flex-shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-[#385945]/15">
+                                                    ${preciosHTML}
+                                                    <button onclick="abrirModalExposicion('${nombreEsc}', '${urlEsc}', '${videoInfo.tipo}', '${descEsc}')" class="inline-flex items-center gap-2 text-xs font-bold text-[#1e3b2b] bg-[#eef5f0] hover:bg-[#d8e8dd] px-3.5 py-2 rounded-xl border border-[#385945]/30 shadow-sm transition-all active:scale-95 whitespace-nowrap">
+                                                        <i class="fa-solid fa-circle-play text-sm text-[#2d5438]"></i>
+                                                        <span>Ver Video</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+                                }
+
+                                // 2. TARJETA DE EXPOSICIÓN CON CARTEL/OBRA DE ARTE (Sin video - Exposiciones 2 y 3)
+                                if (esCatExposiciones) {
+                                    const posterImg = tieneImagen ? item.imagen.trim() : 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=600&q=80';
+                                    const urlImgEsc = posterImg.replace(/'/g, "\\'");
+
+                                    return `
+                                        <div class="paint-card rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-sm relative overflow-hidden font-sans col-span-1 group border border-white/80">
+                                            <!-- Cartel Oficial con opción de ampliar en Lightbox -->
+                                            <div class="relative w-full h-72 sm:h-80 rounded-xl overflow-hidden bg-[#18191b] shadow-md cursor-pointer mb-3.5 group/poster border border-black/10" onclick="abrirModalExposicion('${nombreEsc}', '${urlImgEsc}', 'imagen', '${descEsc}')">
+                                                <img src="${posterImg}" alt="${item.nombre}" class="w-full h-full object-contain sm:object-cover transition-transform duration-500 group-hover/poster:scale-105">
+                                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover/poster:opacity-100 transition-opacity flex items-center justify-center">
+                                                    <div class="w-11 h-11 rounded-full bg-white/80 backdrop-blur-md text-[#1e3b2b] flex items-center justify-center shadow-lg">
+                                                        <i class="fa-solid fa-magnifying-glass-plus text-base"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="absolute top-3 left-3 bg-[#1c1e20]/80 text-[#eaf2ec] text-[10px] font-bold px-2.5 py-1 rounded-md border border-white/10 backdrop-blur-md flex items-center gap-1.5 uppercase tracking-wider">
+                                                    <i class="fa-solid fa-palette text-[#86efac]"></i>
+                                                    <span>Cartel Oficial</span>
+                                                </div>
+                                                <div class="absolute bottom-3 right-3 bg-black/70 text-white/90 text-[10px] font-medium px-2 py-0.5 rounded backdrop-blur-sm flex items-center gap-1">
+                                                    <i class="fa-solid fa-expand text-[9px]"></i>
+                                                    <span>Tocar para ampliar</span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Información y Botón de la Obra -->
+                                            <div class="flex flex-col justify-between flex-1 gap-3">
+                                                <div>
+                                                    <h3 class="font-bold text-base md:text-lg text-cafe-texto leading-snug break-words paint-title">${item.nombre}</h3>
+                                                    ${item.descripcion ? `<p class="text-cafe-mutado text-xs sm:text-sm leading-relaxed mt-1.5 italic">${item.descripcion}</p>` : ''}
+                                                </div>
+                                                <div class="flex items-center gap-2 justify-between flex-shrink-0 pt-2 border-t border-[#385945]/15 mt-auto">
+                                                    ${preciosHTML}
+                                                    <button onclick="abrirModalExposicion('${nombreEsc}', '${urlImgEsc}', 'imagen', '${descEsc}')" class="inline-flex items-center gap-1.5 text-xs font-bold text-[#1e3b2b] bg-[#eef5f0] hover:bg-[#d8e8dd] px-3 py-1.5 rounded-xl border border-[#385945]/30 shadow-sm transition-all active:scale-95 whitespace-nowrap">
+                                                        <i class="fa-solid fa-image text-xs text-[#2d5438]"></i>
+                                                        <span>Ver Cartel</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    `;
+                                }
+
+                                // 3. TARJETA REGULAR DE ALIMENTOS / BEBIDAS
+                                return `
+                                    <div class="paint-card rounded-xl p-4 flex gap-4 shadow-sm items-start font-sans">
+                                        ${tieneImagen ? `<div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0 bg-[#e8ece9] self-center shadow border border-white/60"><img src="${item.imagen.trim()}" alt="${item.nombre}" class="w-full h-full object-cover rounded-lg"></div>` : ''}
+                                        <div class="flex-1 min-w-0 flex justify-between items-start gap-2">
+                                            <div class="flex-1 min-w-0">
+                                                <h3 class="font-semibold text-sm md:text-base text-cafe-texto leading-snug break-words paint-title">${item.nombre}</h3>
+                                                ${item.descripcion ? `<p class="text-cafe-mutado text-xs leading-relaxed mt-1 font-normal">${item.descripcion}</p>` : ''}
+                                            </div>
+                                            ${preciosHTML}
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    `;
+                    menuContainer.appendChild(seccion);
+                }
+            });
+
+            loadingState.classList.add('hidden'); 
+            menuContainer.classList.remove('hidden');
+        }
+
+        function formatearPrecio(precio) {
+            if (!precio) return '';
+            const texto = precio.toString().trim();
+            const numero = parseFloat(texto.replace(/[^0-9.-]+/g, ""));
+            // Si el texto contiene palabras (e.g., 'Entrada Libre', 'Vino de Honor', 'Obra en Taller') se muestra tal cual
+            if (isNaN(numero) || /[a-zA-Z]/.test(texto)) return texto;
+            return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(numero);
+        }
+
+        // =========================================================================
+        // CONTROL DEL MODAL LIGHTBOX DE EXPOSICIÓN (VIDEOS & CARTELES EN ALTA RESOLUCIÓN)
+        // =========================================================================
+        function abrirModalExposicion(titulo, url, tipo, descripcion) {
+            const modal = document.getElementById('video-modal');
+            const modalTitle = document.getElementById('video-modal-title');
+            const modalDesc = document.getElementById('video-modal-desc');
+            const container = document.getElementById('video-player-container');
+            const modalContent = document.getElementById('video-modal-card');
+            if (!modal || !container) return;
+
+            modalTitle.textContent = titulo || 'Exposición de Arte';
+            modalDesc.textContent = descripcion || 'Café Ancona · Café & Galería de Arte';
+            container.innerHTML = '';
+
+            if (tipo === 'youtube' || tipo === 'vimeo') {
+                container.className = "relative w-full aspect-video bg-black flex items-center justify-center";
+                const iframe = document.createElement('iframe');
+                iframe.src = url;
+                iframe.className = "w-full h-full border-0";
+                iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+                iframe.allowFullscreen = true;
+                container.appendChild(iframe);
+            } else if (tipo === 'directo') {
+                container.className = "relative w-full aspect-video bg-black flex items-center justify-center";
+                const video = document.createElement('video');
+                video.src = url;
+                video.className = "w-full h-full object-contain bg-black";
+                video.controls = true;
+                video.autoplay = true;
+                video.playsInline = true;
+                container.appendChild(video);
+            } else if (tipo === 'imagen') {
+                container.className = "relative w-full max-h-[75vh] p-2 sm:p-3 bg-[#121315] flex items-center justify-center overflow-hidden";
+                const img = document.createElement('img');
+                img.src = url;
+                img.alt = titulo || 'Cartel de Exposición';
+                img.className = "max-h-[72vh] max-w-full w-auto object-contain rounded-lg shadow-2xl";
+                container.appendChild(img);
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.classList.add('opacity-100');
+                if (modalContent) {
+                    modalContent.classList.remove('scale-95');
+                    modalContent.classList.add('scale-100');
+                }
+            }, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        const abrirModalVideo = abrirModalExposicion;
+
+        function cerrarModalVideo() {
+            const modal = document.getElementById('video-modal');
+            const container = document.getElementById('video-player-container');
+            const modalContent = document.getElementById('video-modal-card');
+            if (!modal) return;
+
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0');
+            if (modalContent) {
+                modalContent.classList.remove('scale-100');
+                modalContent.classList.add('scale-95');
+            }
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+                if (container) container.innerHTML = '';
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') cerrarModalVideo();
+        });
+    </script>
+</body>
+</html>
