@@ -1,40 +1,33 @@
-# Café Ancona - Menú Digital Interactivo | Café & Galería de Arte
+# Café Ancona - Menú Digital (Rama Demo 2: Estilo La Mansión)
 
-Menú digital web de alta estética para **Café Ancona** (Café & Galería de Arte). Diseñado en HTML5, CSS3 y JavaScript vanilla.
+Segunda versión del menú digital para **Café Ancona** (Café & Galería de Arte), rediseñada con un estilo editorial contemporáneo de alta gastronomía inspirado en la estética de **[La Mansión](https://lamansion.com.mx/)**.
 
-## Características Principales
+## Características de la Versión Demo 2
 
-1. **Marco de Piedra Volcánica (Basalto / Recinto Mexicano):**
-   - Marco perimetral continuo y poroso (`assets/marco_piedra_volcanica.png`), inspirado en la arquitectura tradicional de cantera y basalto volcánico.
-   - Sombreado de profundidad y relieve biselado optimizado para dispositivos móviles y escritorio.
+1. **Diseño Editorial de Lujo Contemporáneo:**
+   - Inspirado en la atmósfera limpia, sobria y sofisticada de La Mansión.
+   - Paleta de color: Marfil cálido (`#F7F5ED`), Verde Salvia institucional (`#6F816A`), Carbón profundo (`#141615`), Latón/Oro suave (`#B89758`) y líneas divisorias sutiles (`#E4DFD3`).
+   - Sin marcos perimetrales pesados; formato editorial abierto, aireado y de alta legibilidad móvil.
 
-2. **Fondo de Lienzo al Óleo (Preservado):**
-   - Textura táctil de lienzo de lino (`assets/canvas_texture.svg`) con iluminación cenital de foco de galería (`.gallery-lighting-layer`).
+2. **Tipografía Editorial Curada:**
+   - Encabezados principales en serifa clásica y de alta costura editorial (`Cinzel` y `Cormorant Garamond`).
+   - Textos de navegación y cuerpo en sans-serif contemporáneo (`Montserrat`).
+   - Foliación, números de sección (`01 / CARTA`) e insignias en fuente monoespaciada (`Space Mono`), emulando la tipografía editorial de La Mansión.
 
-3. **Tarjetas con Efecto Glassmorphism:**
-   - Acabado de vidrio esmerilado translúcido (`backdrop-filter: blur(14px) saturate(150%)`).
-   - Refracta suavemente la textura del lienzo inferior, con bordes de luz blanca y sutiles tonos botánicos al pasar el cursor.
+3. **Hero Editorial de Alta Gama:**
+   - Sección de bienvenida con fondo carbón profundo: *"El arte de saborear cada momento"*.
+   - Kicker editorial `01 · RITUAL GASTRONÓMICO & ESPACIO DE ARTE`.
+   - Accesos directos a la sala de exposiciones, ubicación, horario y botón de reserva.
 
-4. **Identidad Tipográfica Oficial de Café Ancona:**
-   - Estructura fiel a su letrero físico exterior:
-     - `CAFÉ` centrado superior con serifa espaciada (`tracking-[0.34em]`).
-     - `ANCONA` en mayúsculas romanas clásicas monumentales (`Cinzel` peso 900, `tracking-[0.14em]`).
-     - Filete divisorio fino en verde salvia.
-     - `CAFÉ & GALERÍA DE ARTE` en sans-serif extendido.
-   - Flanqueado por ramas botánicas de olivo/laurel (`assets/ramita_botanica.svg`), tal como en el caballete de exhibición en la entrada.
+4. **Curaduría & Exposiciones de Arte Administrables:**
+   - Sección dedicada **"Exposiciones"** administrable (permite agregar o retirar exposiciones vía Google Sheets o datos locales).
+   - **Video único en la primera exposición:** Documental de taller para la *Exposición Pictórica de Emmanuel Paloméc*, con reproductor panorámico 16:9 y modal lightbox de teatro.
+   - **Carteles de arte en alta resolución:** Fotografías y carteles oficiales para *Proceso de Taller: El Rostro de Jade* y *Exposición de Pintura: Gabriel Acosta*, con botón para ampliar en pantalla completa.
 
-5. **Acentos en Verde Botánico y Categoría "Bocados del Jardín":**
-   - Paleta inspirada en su caballete exterior (`#1e3b2b`, `#2d5438`, `#385945`, `#eef5f0`).
-   - Categorías botánicas con sección "Bocados del Jardín", "Matcha & Tés", "Café de Especialidad" y "Galería de Arte".
+5. **Navegación por Píldoras Estilo La Mansión:**
+   - Botón superior de acción rápida `RESERVAR` (`.mansion-btn-primary`, color `#6F816A`).
+   - Barra de categorías sticky horizontal con scroll suave y píldora activa destacada.
 
-6. **Sección Administrable de Exposiciones de Arte:**
-   - Sección dedicada **"Exposiciones"** totalmente dinámica: se pueden agregar, editar o retirar exposiciones simplemente modificando las filas en Google Sheets o en `DEFAULT_MENU_ROWS` (cambiando `estado` a `'activo'` o `'inactivo'`).
-   - **Video único en la primera exposición:** Cumple con la directriz de mantener un único video estelar en la primera obra/evento (documental de taller en formato 16:9 con reproductor lightbox de teatro) para no sobrecargar la conexión de los dispositivos móviles.
-   - **Carteles oficiales en alta definición:** Las demás exposiciones exhiben sus carteles y obras originales (como las muestras de *Emmanuel Paloméc* y *Gabriel Acosta*), con botón para expandir el cartel en pantalla completa y consultar fechas, músicos invitados y detalles de inauguración.
-
-7. **Serpiente Emplumada Ondulante:**
-   - Recorre suavemente el encabezado de derecha a izquierda debajo de los títulos en un bucle armónico.
-   - Animación cinemática en Canvas 2D sin estelas ni distracciones.
-
-8. **Encabezado Inteligente (Smart Header):**
-   - Se repliega al deslizar hacia abajo para maximizar la lectura del menú, y se despliega al volver a subir.
+6. **Identidad Sutil de Café Ancona:**
+   - La serpiente emplumada prehispánica (*Quetzalcóatl*) recorre con elegancia el encabezado en bucle sinusoidal suave.
+   - Ramas botánicas de olivo/laurel flanqueando el logotipo oficial.
