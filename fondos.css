@@ -1,71 +1,113 @@
 /* ==========================================================================
-   CAFÉ ANCONA - DEMO 2: ESTILO EDITORIAL INSPIRADO EN LA MANSIÓN
-   (https://lamansion.com.mx/)
-   - Paleta: Marfil cálido (#F7F5ED), Verde Salvia Mansión (#6F816A),
-             Carbón Profundo (#141615), Dorado Antiguo (#B89758).
-   - Tipografía: Cormorant Garamond & Cinzel (Serif Editorial),
-                 Montserrat (Grotesk Moderno), Space Mono (Monospace Editorial).
-   - Composición: Diseño editorial de alta gama, sin marcos rústicos forzados,
-                  con fotografía cuidada, líneas finas y ritmo contemporáneo.
+   CAFÉ ANCONA - DEMO 2: ESTILO LA MANSIÓN (lamansion.com.mx)
+   - Hero: Fondo verde con composición de cafés de especialidad.
+   - Efecto tipográfico: Revelado secuencial de letras monumentales en crema.
+   - Menú: Formato carta digital de alta gama (más carta/menú que sitio web).
    ========================================================================== */
 
 :root {
-  --mansion-ivory: #F7F5ED;       /* Fondo base cálido y hueso */
-  --mansion-ivory-light: #FCFBF7; /* Fondo de tarjetas */
-  --mansion-green: #6F816A;       /* Verde salvia institucional La Mansión */
-  --mansion-green-dark: #4A5746;  /* Verde bosque profundo */
-  --mansion-dark: #141615;        /* Carbón / ébano de contraste */
-  --mansion-charcoal: #232725;    /* Gris carbón para encabezados */
-  --mansion-gold: #B89758;        /* Acento dorado cálido / latón */
-  --mansion-muted: #646A64;       /* Texto descriptivo refinado */
-  --mansion-border: #E4DFD3;      /* Líneas divisorias ultrafinas */
-  --mansion-card-border: rgba(111, 129, 106, 0.18);
+  --mansion-green-table: #435F48; /* Verde mesa de La Mansión */
+  --mansion-ivory: #F7F5ED;       /* Hueso / crema */
+  --mansion-ivory-light: #FCFBF7; /* Fondo tarjetas */
+  --mansion-green: #6F816A;       /* Verde salvia institucional */
+  --mansion-green-dark: #3F523B;  /* Verde oscuro de acento */
+  --mansion-dark: #141615;        /* Ébano / carbón */
+  --mansion-gold: #C5A059;        /* Latón / oro cálido */
+  --mansion-muted: #5C635B;       /* Texto descriptivo */
+  --mansion-border: #E5E0D4;      /* Líneas finas */
 }
 
-/* 1. Fondo General y Base Editorial */
 body {
     background-color: var(--mansion-ivory) !important;
     color: var(--mansion-dark);
     font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
-    letter-spacing: -0.01em;
 }
 
-/* 2. Tipografía Editorial de Alta Gama */
-.font-editorial-serif {
-    font-family: 'Cormorant Garamond', 'Cinzel', serif;
+/* 1. SECCIÓN HERO: FONDO VERDE CON CAFÉS Y TIPOGRAFÍA MONUMENTAL */
+.hero-mansion-section {
+    position: relative;
+    width: 100%;
+    min-height: 92vh;
+    background-color: var(--mansion-green-table);
+    background-image: 
+        radial-gradient(ellipse 85% 65% at 50% 50%, rgba(0, 0, 0, 0.28) 0%, rgba(15, 25, 18, 0.75) 100%),
+        url('assets/fondo_verde_cafes.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
 }
 
-.font-editorial-mono {
-    font-family: 'Space Mono', monospace;
+/* Animación de entrada letra por letra estilo La Mansión */
+@keyframes letterReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(35px) scale(0.92);
+        filter: blur(6px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
 }
 
-.font-editorial-title {
-    font-family: 'Cinzel', 'Cormorant Garamond', serif;
-    letter-spacing: 0.08em;
+.hero-letter {
+    display: inline-block;
+    color: #F7F5ED;
+    text-shadow: 
+        0 4px 18px rgba(0, 0, 0, 0.45),
+        0 1px 2px rgba(0, 0, 0, 0.6);
+    animation: letterReveal 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: var(--delay);
+    opacity: 0;
+    will-change: transform, opacity;
 }
 
-/* 3. Encabezado Sticky con Estilo La Mansión */
-.mansion-header {
-    background: rgba(247, 245, 237, 0.94);
+.hero-letter-space {
+    display: inline-block;
+    width: 0.35em;
+}
+
+/* 2. ENCABEZADO Y NAVEGACIÓN */
+.mansion-top-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 40;
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #F7F5ED;
+    background: linear-gradient(180deg, rgba(15, 25, 18, 0.65) 0%, transparent 100%);
+}
+
+.mansion-sticky-header {
+    background: rgba(247, 245, 237, 0.96);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--mansion-border);
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Botón estilo oficial de La Mansión (.mansion-btn-header) */
+/* Botón característico de La Mansión */
 .mansion-btn-primary {
     background-color: var(--mansion-green) !important;
-    color: var(--mansion-ivory) !important;
+    color: #F7F5ED !important;
     border: 1px solid var(--mansion-green) !important;
     border-radius: 6px !important;
     text-transform: uppercase !important;
     font-weight: 600 !important;
-    font-size: 0.75rem !important;
     letter-spacing: 0.12em !important;
-    transition: all 0.25s ease !important;
+    transition: all 0.22s ease !important;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -76,102 +118,92 @@ body {
     border-color: var(--mansion-green-dark) !important;
     color: #ffffff !important;
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(111, 129, 106, 0.25);
+    box-shadow: 0 4px 12px rgba(111, 129, 106, 0.3);
 }
 
-.mansion-btn-outline {
-    background-color: transparent !important;
-    color: var(--mansion-dark) !important;
-    border: 1px solid var(--mansion-dark) !important;
-    border-radius: 6px !important;
-    text-transform: uppercase !important;
-    font-weight: 600 !important;
-    font-size: 0.75rem !important;
-    letter-spacing: 0.12em !important;
-    transition: all 0.25s ease !important;
+/* 3. BARRA DE CATEGORÍAS TIPO MENÚ / CARTA */
+.mansion-category-bar {
+    background: #FAF8F3;
+    border-bottom: 1px solid var(--mansion-border);
+    position: sticky;
+    top: 0;
+    z-index: 35;
+    box-shadow: 0 4px 14px -4px rgba(20, 22, 21, 0.05);
 }
 
-.mansion-btn-outline:hover {
-    background-color: var(--mansion-dark) !important;
-    color: var(--mansion-ivory) !important;
-}
-
-/* 4. Barra de Navegación de Categorías */
-.mansion-nav-btn {
-    position: relative;
-    font-size: 0.85rem;
+.mansion-nav-pill {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.82rem;
     font-weight: 600;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    letter-spacing: 0.14em;
     color: var(--mansion-muted);
-    transition: all 0.25s ease;
-    padding: 0.5rem 0.75rem;
     border-radius: 6px;
     white-space: nowrap;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
 }
 
-.mansion-nav-btn:hover {
+.mansion-nav-pill:hover {
     color: var(--mansion-dark);
+    background: rgba(111, 129, 106, 0.08);
 }
 
-.mansion-nav-btn.active {
-    color: var(--mansion-ivory);
+.mansion-nav-pill.active {
     background-color: var(--mansion-green);
-    box-shadow: 0 2px 8px rgba(111, 129, 106, 0.2);
+    color: #F7F5ED;
+    border-color: var(--mansion-green);
+    box-shadow: 0 2px 8px rgba(111, 129, 106, 0.25);
 }
 
-/* 5. Tarjetas de Menú Editoriales (Estilo Carta La Mansión) */
-.mansion-card {
-    background: var(--mansion-ivory-light);
+/* 4. TARJETAS DE MENÚ (DISEÑO CARTA DE RESTAURANTE) */
+.menu-item-row {
+    background: #FCFBF7;
     border: 1px solid var(--mansion-border);
     border-radius: 12px;
-    transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
-    overflow: hidden;
+    padding: 1rem 1.15rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    transition: all 0.22s ease;
 }
 
-.mansion-card:hover {
-    border-color: rgba(111, 129, 106, 0.45);
-    box-shadow: 0 10px 28px -6px rgba(20, 22, 21, 0.08);
-    transform: translateY(-2px);
+.menu-item-row:hover {
+    border-color: rgba(111, 129, 106, 0.5);
+    box-shadow: 0 6px 18px -4px rgba(20, 22, 21, 0.08);
+    transform: translateY(-1px);
+    background: #ffffff;
 }
 
-/* Tarjeta Destacada de Obra / Especialidad */
-.mansion-card-featured {
-    background: linear-gradient(145deg, #FCFBF7 0%, #F5F1E6 100%);
-    border: 1px solid rgba(184, 151, 88, 0.45);
-}
-
-/* Etiqueta de Precio Editorial */
-.mansion-price-tag {
+.menu-price-badge {
     font-family: 'Space Mono', monospace;
     font-weight: 700;
     font-size: 0.95rem;
     color: var(--mansion-green-dark);
-    background: rgba(111, 129, 106, 0.09);
+    background: rgba(111, 129, 106, 0.1);
     border: 1px solid rgba(111, 129, 106, 0.25);
+    padding: 0.25rem 0.6rem;
     border-radius: 6px;
-    padding: 0.2rem 0.55rem;
     white-space: nowrap;
 }
 
-/* 6. Sección de Curaduría & Exposiciones de Arte */
-.mansion-expo-card {
+/* Tarjeta especial de exposición con video */
+.expo-video-card {
     background: #141615;
-    color: var(--mansion-ivory);
+    color: #F7F5ED;
     border-radius: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.28s ease;
 }
 
-.mansion-expo-card:hover {
-    border-color: rgba(184, 151, 88, 0.5);
-    box-shadow: 0 14px 35px -8px rgba(0, 0, 0, 0.4);
-    transform: translateY(-3px);
+.expo-video-card:hover {
+    border-color: var(--mansion-gold);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
 }
 
-/* 7. Serpiente Emplumada de Café Ancona (Acento de Herencia Mexicana) */
+/* Serpiente canvas animada */
 #header-serpent-stage {
     position: relative;
     width: 100%;
@@ -184,37 +216,4 @@ body {
     width: 100%;
     height: 100%;
     display: block;
-}
-
-/* 8. Insignias y Sellos Editoriales */
-.mansion-badge {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    font-weight: 700;
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-}
-
-.mansion-badge-green {
-    background: rgba(111, 129, 106, 0.15);
-    color: var(--mansion-green-dark);
-    border: 1px solid rgba(111, 129, 106, 0.3);
-}
-
-.mansion-badge-gold {
-    background: rgba(184, 151, 88, 0.14);
-    color: #8C6A28;
-    border: 1px solid rgba(184, 151, 88, 0.35);
-}
-
-/* Línea decorativa editorial */
-.mansion-hairline {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--mansion-border), transparent);
-    width: 100%;
 }

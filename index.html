@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Café Ancona | Café & Galería de Arte - Menú Digital</title>
+    <title>Café Ancona | Menú Digital & Galería de Arte</title>
 
-    <!-- Hojas de estilo: Estilo La Mansión (demo2) -->
+    <!-- Estilos de La Mansión y Efecto Hero (demo2) -->
     <link rel="stylesheet" href="fondos.css">
 
-    <!-- Tailwind CDN y Paleta Inspirada en La Mansión (lamansion.com.mx) -->
+    <!-- Tailwind CDN y Paleta La Mansión -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -16,15 +16,16 @@
             extend: {
               colors: {
                 mansion: {
+                  table: '#435F48',
                   ivory: '#F7F5ED',
                   light: '#FCFBF7',
-                  green: '#6F816A',       /* Verde salvia oficial La Mansión */
-                  greenDark: '#4A5746',
-                  dark: '#141615',        /* Carbón profundo */
-                  charcoal: '#232725',
-                  gold: '#B89758',        /* Latón / oro cálido */
-                  muted: '#646A64',
-                  border: '#E4DFD3'
+                  green: '#6F816A',       /* Verde oficial La Mansión */
+                  greenDark: '#3F523B',
+                  dark: '#141615',
+                  charcoal: '#222624',
+                  gold: '#C5A059',
+                  muted: '#5C635B',
+                  border: '#E5E0D4'
                 }
               },
               fontFamily: {
@@ -38,7 +39,7 @@
         }
     </script>
 
-    <!-- Google Fonts: Cormorant Garamond, Cinzel, Montserrat, Space Mono -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -51,342 +52,230 @@
         html { scroll-behavior: smooth; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scroll-width: none; }
-
-        #main-header {
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            transform-style: preserve-3d;
-        }
     </style>
 </head>
-<body class="bg-[#F7F5ED] text-[#141615] min-h-screen flex flex-col antialiased font-sans relative selection:bg-[#6F816A] selection:text-[#F7F5ED]">
+<body class="bg-[#F7F5ED] text-[#141615] min-h-screen flex flex-col antialiased font-sans selection:bg-[#6F816A] selection:text-[#F7F5ED]">
 
-    <!-- 1. Barra Superior Editorial (Pre-Header con datos de la sala) -->
-    <div class="bg-[#141615] text-[#F7F5ED] text-[10px] sm:text-xs py-1.5 px-4 tracking-widest uppercase font-mono border-b border-white/10 flex justify-between items-center z-50 relative select-none">
-        <div class="flex items-center gap-2 mx-auto sm:mx-0">
-            <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#6F816A]"></span>
-            <span>CASA ANCONA · CAFÉ & GALERÍA DE ARTE</span>
+    <!-- =========================================================================
+         1. VISTA PRINCIPAL (HERO CON FONDO VERDE, CAFÉS Y EFECTO LA MANSIÓN)
+         ========================================================================= -->
+    <section class="hero-mansion-section select-none" id="hero-view">
+        
+        <!-- Barra Superior Translúcida sobre el Fondo Verde -->
+        <nav class="mansion-top-nav">
+            <div class="hidden md:flex items-center gap-6 text-xs font-mono tracking-widest text-[#F7F5ED]/90 uppercase">
+                <a href="#menu-seccion-principal" class="hover:text-white transition-colors">CARTA</a>
+                <span class="text-white/40">/</span>
+                <a href="#seccion-exposiciones" class="hover:text-white transition-colors">EXPOSICIONES</a>
+                <span class="text-white/40">/</span>
+                <span class="text-[#86efac]">ENTRADA LIBRE</span>
+            </div>
+
+            <!-- Monograma Central en el Nav -->
+            <div class="flex items-center gap-2 mx-auto md:mx-0">
+                <span class="inline-block w-2 h-2 rounded-full bg-[#86efac]"></span>
+                <span class="font-mono text-xs tracking-[0.25em] text-[#F7F5ED] uppercase font-bold">CAFÉ ANCONA</span>
+            </div>
+
+            <!-- Botón Reservar / WhatsApp Estilo La Mansión -->
+            <div class="flex items-center gap-3">
+                <a href="https://wa.me/?text=Hola%20Café%20Ancona,%20quisiera%20hacer%20una%20reservación%20o%20pedido" target="_blank" class="mansion-btn-primary px-3.5 py-1.5 text-xs shadow-md">
+                    <i class="fa-brands fa-whatsapp mr-1.5 text-sm"></i>
+                    <span>RESERVAR</span>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Centro: Emblema y Nombre Monumental con Efecto Letra por Letra -->
+        <div class="flex flex-col items-center justify-center text-center px-4 my-auto pt-20 pb-8 z-10 w-full max-w-5xl">
+            
+            <!-- Emblema: Serpiente Emplumada Prehispánica / Ramas de Olivo -->
+            <div class="flex items-center justify-center gap-3 mb-2 opacity-95">
+                <img src="assets/ramita_botanica.svg" alt="Rama botánica" class="w-8 sm:w-11 opacity-90 filter invert brightness-125 transform scale-x-[-1]" aria-hidden="true">
+                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-lg">
+                    <i class="fa-solid fa-mug-saucer text-lg sm:text-xl text-[#F7F5ED]"></i>
+                </div>
+                <img src="assets/ramita_botanica.svg" alt="Rama botánica" class="w-8 sm:w-11 opacity-90 filter invert brightness-125" aria-hidden="true">
+            </div>
+
+            <span class="font-serif italic text-sm sm:text-base md:text-lg text-[#F7F5ED]/90 tracking-[0.3em] uppercase block mb-1">
+                Café & Galería de Arte
+            </span>
+
+            <!-- NOMBRE MONUMENTAL: CAFÉ ANCONA CON EFECTO DE REVELACIÓN SECUENCIAL (ESTILO LA MANSIÓN) -->
+            <h1 class="font-titulo text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black tracking-tight text-[#F7F5ED] leading-none my-1 flex flex-wrap justify-center items-center drop-shadow-2xl" aria-label="Café Ancona">
+                <span class="inline-flex">
+                    <span class="hero-letter" style="--delay: 0.05s">C</span>
+                    <span class="hero-letter" style="--delay: 0.10s">A</span>
+                    <span class="hero-letter" style="--delay: 0.15s">F</span>
+                    <span class="hero-letter" style="--delay: 0.20s">É</span>
+                </span>
+                <span class="hero-letter-space"> </span>
+                <span class="inline-flex">
+                    <span class="hero-letter" style="--delay: 0.28s">A</span>
+                    <span class="hero-letter" style="--delay: 0.33s">N</span>
+                    <span class="hero-letter" style="--delay: 0.38s">C</span>
+                    <span class="hero-letter" style="--delay: 0.43s">O</span>
+                    <span class="hero-letter" style="--delay: 0.48s">N</span>
+                    <span class="hero-letter" style="--delay: 0.53s">A</span>
+                </span>
+            </h1>
+
+            <!-- Línea fina con acento de oro / latón -->
+            <div class="w-full max-w-xs sm:max-w-md h-[1.5px] bg-gradient-to-r from-transparent via-[#F7F5ED]/70 to-transparent my-3"></div>
+
+            <p class="font-mono text-[10px] sm:text-xs text-[#F7F5ED]/90 tracking-[0.24em] uppercase max-w-md sm:max-w-xl mx-auto">
+                CUAJIMALPA DE MORELOS · CIUDAD DE MÉXICO
+            </p>
+
+            <!-- Acceso Directo al Menú / Carta -->
+            <div class="flex items-center gap-3 mt-6">
+                <a href="#menu-seccion-principal" class="bg-[#F7F5ED] hover:bg-white text-[#141615] px-6 py-2.5 rounded-full font-mono text-xs uppercase tracking-widest font-bold shadow-xl hover:scale-105 active:scale-95 transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-book-open text-xs text-[#6F816A]"></i>
+                    <span>VER CARTA DIGITAL</span>
+                </a>
+            </div>
         </div>
-        <div class="hidden sm:flex items-center gap-4 text-white/70">
-            <span>LUN A SÁB · 5 A 10 PM</span>
-            <span>·</span>
-            <span>ANTONIO ANCONA #19, CUAJIMALPA</span>
-            <span>·</span>
-            <span class="text-[#86efac]">ENTRADA LIBRE</span>
+
+        <!-- Pie del Hero con Ficha Rápida e Indicador de Scroll -->
+        <div class="w-full bg-black/45 backdrop-blur-md py-3 px-6 text-[#F7F5ED] border-t border-white/10 z-10 flex flex-col sm:flex-row justify-between items-center text-xs font-mono gap-2">
+            <div class="flex items-center gap-4 text-[11px] text-[#F7F5ED]/80">
+                <span><i class="fa-solid fa-clock mr-1 text-[#86efac]"></i> LUN A SÁB · 5:00 A 10:00 PM</span>
+                <span class="hidden md:inline">·</span>
+                <span class="hidden md:inline"><i class="fa-solid fa-location-dot mr-1 text-[#86efac]"></i> ANTONIO ANCONA #19</span>
+            </div>
+            <a href="#menu-seccion-principal" class="text-[#86efac] hover:text-white flex items-center gap-1.5 text-[11px] font-bold tracking-wider animate-bounce">
+                <span>DESLIZA PARA ORDENAR</span>
+                <i class="fa-solid fa-chevron-down text-[10px]"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         2. BARRA DE CATEGORÍAS STICKY (FORMATO CARTA / MENÚ DIRECTO)
+         ========================================================================= -->
+    <div id="menu-seccion-principal" class="mansion-category-bar">
+        <div class="max-w-6xl mx-auto px-4 py-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+            
+            <!-- Logo minimalista en barra sticky -->
+            <div class="flex items-center gap-2 flex-shrink-0 select-none">
+                <span class="font-titulo text-base font-black text-[#141615] tracking-widest">CAFÉ ANCONA</span>
+                <span class="font-mono text-[9px] bg-[#6F816A] text-white px-2 py-0.5 rounded font-bold uppercase">CARTA</span>
+            </div>
+
+            <!-- Píldoras de Categorías con Scroll Horizontal Fluido -->
+            <div id="categories-nav" class="flex gap-1.5 sm:gap-2 overflow-x-auto w-full no-scrollbar justify-start md:justify-end items-center select-none py-1"></div>
         </div>
     </div>
 
-    <!-- 2. Encabezado Sticky de Alta Gama (Estilo La Mansión) -->
-    <header id="main-header" class="mansion-header fixed top-0 sm:top-0 left-0 w-full z-40 transition-transform duration-300 ease-out will-change-transform">
-        
-        <!-- Bloque Principal de Marca -->
-        <div id="top-info-block" class="max-w-6xl mx-auto px-4 sm:px-8 pt-4 pb-2 flex flex-col">
-            <div class="flex items-center justify-between w-full">
-                
-                <!-- Izquierda: Monograma / Sello -->
-                <div class="hidden md:flex flex-col text-left">
-                    <span class="font-mono text-[9px] uppercase tracking-[0.22em] text-[#646A64]">CURADURÍA</span>
-                    <span class="font-serif italic text-xs text-[#141615]">Café & Plástica</span>
-                </div>
-
-                <!-- Centro: Logotipo de Café Ancona Flanqueado por Ramas Botánicas -->
-                <div class="flex flex-col items-center justify-center text-center mx-auto">
-                    <div class="flex items-center justify-center gap-2 sm:gap-4">
-                        <img src="assets/ramita_botanica.svg" alt="Rama botánica" class="w-7 sm:w-10 opacity-75 select-none pointer-events-none transform scale-x-[-1] flex-shrink-0" aria-hidden="true">
-                        
-                        <a href="https://www.instagram.com/cafe_ancona" target="_blank" class="hover:opacity-90 active:scale-95 transition-all inline-flex flex-col items-center justify-center text-center group" title="Instagram Café Ancona">
-                            <span class="font-serif text-[10px] sm:text-xs tracking-[0.35em] text-[#6F816A] uppercase font-semibold">CAFÉ</span>
-                            <h1 class="font-editorial-title text-2xl sm:text-3xl md:text-4xl font-black tracking-[0.16em] text-[#141615] leading-tight my-0.5">ANCONA</h1>
-                            <div class="w-full max-w-[170px] sm:max-w-[210px] h-[1px] bg-[#6F816A]/40 my-0.5 rounded-full"></div>
-                            <span class="font-mono text-[8px] sm:text-[9px] tracking-[0.24em] text-[#646A64] uppercase">CAFÉ & GALERÍA DE ARTE</span>
-                        </a>
-
-                        <img src="assets/ramita_botanica.svg" alt="Rama botánica" class="w-7 sm:w-10 opacity-75 select-none pointer-events-none flex-shrink-0" aria-hidden="true">
-                    </div>
-
-                    <!-- Serpiente Ondulante Estilizada en Canvas -->
-                    <div id="header-serpent-stage" class="w-full max-w-sm sm:max-w-md mx-auto">
-                        <canvas id="header-serpent-canvas"></canvas>
-                    </div>
-                </div>
-
-                <!-- Derecha: Botón de Acción Estilo La Mansión (.mansion-btn-primary) -->
-                <div class="hidden sm:flex items-center gap-2">
-                    <a href="https://wa.me/?text=Hola%20Café%20Ancona,%20quisiera%20hacer%20una%20reservación%20o%20pedido" target="_blank" class="mansion-btn-primary px-3.5 py-1.5 shadow-sm" title="Reservar mesa o hacer pedido">
-                        <i class="fa-brands fa-whatsapp mr-1.5 text-sm"></i>
-                        <span>RESERVAR</span>
-                    </a>
-                </div>
-            </div>
+    <!-- Buscador de Platillos / Bebidas en la Carta -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 pt-4 pb-2 w-full flex justify-between items-center">
+        <div class="relative w-full max-w-sm">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-xs text-[#5C635B]"></i>
+            <input type="text" id="menu-search-input" placeholder="Buscar café, postre, panini u obra..." class="w-full bg-[#FCFBF7] border border-[#E5E0D4] rounded-full pl-9 pr-4 py-1.5 text-xs text-[#141615] placeholder-[#5C635B]/70 focus:outline-none focus:border-[#6F816A] transition-all font-mono">
         </div>
-
-        <!-- Barra de Categorías Horizontal con Scroll Suave -->
-        <div class="border-t border-[#E4DFD3] bg-[#FAF8F3]/90">
-            <div id="categories-nav" class="max-w-6xl mx-auto flex gap-2 sm:gap-4 overflow-x-auto py-2.5 px-4 sm:px-8 no-scrollbar justify-start md:justify-center items-center select-none font-sans"></div>
-        </div>
-    </header>
-
-    <div id="header-spacer" class="w-full transition-all duration-300"></div>
-
-    <!-- 3. HERO EDITORIAL (Inspirado en 'El arte de compartir la mesa' de La Mansión) -->
-    <section class="max-w-6xl mx-auto px-4 sm:px-8 pt-8 pb-6 w-full">
-        <div class="bg-[#141615] text-[#F7F5ED] rounded-2xl p-6 sm:p-10 md:p-12 relative overflow-hidden shadow-xl border border-white/10">
-            <!-- Textura de fondo sutil con brillo dorado -->
-            <div class="absolute -right-20 -top-20 w-80 h-80 rounded-full bg-[#6F816A]/15 blur-3xl pointer-events-none"></div>
-            <div class="absolute -left-20 -bottom-20 w-80 h-80 rounded-full bg-[#B89758]/10 blur-3xl pointer-events-none"></div>
-
-            <div class="relative z-10 max-w-2xl">
-                <span class="mansion-badge mansion-badge-gold mb-3 text-[#B89758]">
-                    <i class="fa-solid fa-gem text-[8px]"></i>
-                    <span>01 · RITUAL GASTRONÓMICO & ESPACIO DE ARTE</span>
-                </span>
-                
-                <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight tracking-tight text-white mb-3">
-                    El arte de <span class="italic font-normal text-[#B89758]">saborear</span> cada momento
-                </h2>
-                
-                <p class="text-sm sm:text-base text-[#E4DFD3]/80 leading-relaxed font-light mb-6">
-                    Una experiencia donde el grano de especialidad de Chiapas, la repostería artesanal y las exposiciones plásticas contemporáneas conviven en un espacio íntimo en Cuajimalpa de Morelos.
-                </p>
-
-                <!-- Botones de Acción Rápida -->
-                <div class="flex flex-wrap items-center gap-3">
-                    <button onclick="scrollHaciaCategoria('Exposiciones')" class="mansion-btn-primary px-5 py-2.5 text-xs">
-                        <i class="fa-solid fa-palette mr-2"></i>
-                        <span>VER EXPOSICIONES EN SALA</span>
-                    </button>
-                    <a href="https://wa.me/?text=Hola%20Café%20Ancona,%20quisiera%20solicitar%20información%20de%20la%20carta" target="_blank" class="mansion-btn-outline px-4 py-2 text-xs text-[#F7F5ED] border-white/30 hover:border-white">
-                        <span>PEDIR POR WHATSAPP</span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Datos de contacto rápidos al pie del Hero -->
-            <div class="relative z-10 mt-8 pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs font-mono text-[#F7F5ED]/70">
-                <div>
-                    <span class="text-[9px] uppercase tracking-wider block text-[#86efac]">Ubicación</span>
-                    <span class="text-white font-medium">Antonio Ancona #19, Cuajimalpa</span>
-                </div>
-                <div>
-                    <span class="text-[9px] uppercase tracking-wider block text-[#86efac]">Horario</span>
-                    <span class="text-white font-medium">Lunes a Sábado · 5 a 10 PM</span>
-                </div>
-                <div class="col-span-2 sm:col-span-1">
-                    <span class="text-[9px] uppercase tracking-wider block text-[#86efac]">Acceso</span>
-                    <span class="text-white font-medium">Entrada Libre a Galería</span>
-                </div>
-            </div>
-        </div>
-    </section>
+        <span class="font-mono text-[11px] text-[#5C635B] hidden sm:inline-block">PRECIOS EN MXN</span>
+    </div>
 
     <!-- Estado de Carga -->
     <div id="loading-state" class="flex-1 flex flex-col items-center justify-center py-20 relative z-10 px-8">
         <div class="animate-spin rounded-full h-8 w-8 border-2 border-[#6F816A] border-t-transparent mb-3"></div>
-        <p class="text-[#646A64] text-xs font-mono tracking-wider">PREPARANDO LA CARTA Y LA COLECCIÓN DE ARTE...</p>
+        <p class="text-[#5C635B] text-xs font-mono tracking-wider">CARGANDO CARTA DE ESPECIALIDADES...</p>
     </div>
 
-    <!-- Contenedor de Promociones (Obras & Especialidades de la Casa) -->
-    <div id="promos-container" class="max-w-6xl mx-auto px-4 sm:px-8 pt-4 pb-6 w-full hidden relative z-10">
-        <div class="flex items-center justify-between mb-4 pb-2 border-b border-[#E4DFD3]">
-            <div>
-                <span class="mansion-badge mansion-badge-green mb-1">RECOMENDACIONES</span>
-                <h2 class="font-editorial-title text-xl sm:text-2xl font-bold uppercase text-[#141615]">Especialidades de la Casa</h2>
+    <!-- Contenedor de Promociones (Obras Especiales del Mes) -->
+    <div id="promos-container" class="max-w-6xl mx-auto px-4 sm:px-8 pt-2 pb-4 w-full hidden relative z-10">
+        <div class="flex items-center justify-between mb-3 pb-2 border-b border-[#E5E0D4]">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-[#C5A059]"></span>
+                <h2 class="font-titulo text-lg sm:text-xl font-bold uppercase tracking-wider text-[#141615]">Obras & Maridajes del Mes</h2>
             </div>
-            <span class="font-mono text-xs text-[#646A64]">MARIDAJES SELECTOS</span>
+            <span class="font-mono text-[10px] text-[#C5A059] uppercase tracking-widest font-bold">ESPECIALES</span>
         </div>
-        <div id="promos-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
+        <div id="promos-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5"></div>
     </div>
 
-    <!-- Contenedor Principal de Secciones del Menú y Exposiciones -->
+    <!-- =========================================================================
+         3. CONTENEDOR PRINCIPAL DEL MENÚ (FORMATO CARTA ÁGIL Y ELEGANTE)
+         ========================================================================= -->
     <main id="menu-container" class="max-w-6xl mx-auto px-4 sm:px-8 py-2 w-full flex-1 hidden relative z-10"></main>
 
-    <!-- 4. PIE DE PÁGINA EDITORIAL (Estilo La Mansión) -->
-    <footer class="w-full bg-[#141615] text-[#F7F5ED] py-12 px-6 sm:px-12 border-t border-white/10 mt-16 relative z-10">
-        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-10 pb-10 border-b border-white/10 text-xs">
+    <!-- =========================================================================
+         4. PIE DE PÁGINA (ESTILO LA MANSIÓN)
+         ========================================================================= -->
+    <footer class="w-full bg-[#141615] text-[#F7F5ED] py-10 px-6 sm:px-12 border-t border-white/10 mt-16 relative z-10">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 pb-8 border-b border-white/10 text-xs font-sans">
             
             <!-- Columna 1: Marca -->
-            <div class="md:col-span-2">
-                <span class="font-serif text-sm tracking-[0.3em] text-[#6F816A] uppercase font-semibold block mb-1">CAFÉ</span>
-                <h3 class="font-editorial-title text-3xl font-black tracking-widest text-white mb-2">ANCONA</h3>
-                <p class="font-serif italic text-base text-[#B89758] mb-3">"El arte de saborear cada momento"</p>
-                <p class="text-[#E4DFD3]/70 font-light leading-relaxed max-w-sm mb-4">
-                    Café de especialidad, cocina artesanal y galería de arte en Cuajimalpa de Morelos. Un espacio para detenerse y contemplar.
+            <div>
+                <span class="font-serif text-xs tracking-[0.3em] text-[#86efac] uppercase font-semibold block mb-1">CAFÉ</span>
+                <h3 class="font-titulo text-2xl font-black tracking-widest text-white mb-2">ANCONA</h3>
+                <p class="font-serif italic text-sm text-[#C5A059] mb-3">"El arte de saborear cada momento"</p>
+                <p class="text-[#E5E0D4]/70 font-light leading-relaxed max-w-xs">
+                    Café de especialidad de Chiapas y exposiciones plásticas en Cuajimalpa de Morelos.
                 </p>
-                <div class="flex items-center gap-3">
-                    <a href="https://www.instagram.com/cafe_ancona" target="_blank" class="w-8 h-8 rounded-full bg-white/10 hover:bg-[#6F816A] text-white flex items-center justify-center transition-colors" title="Instagram">
-                        <i class="fa-brands fa-instagram text-sm"></i>
-                    </a>
-                    <a href="https://wa.me/?text=Hola%20Café%20Ancona" target="_blank" class="w-8 h-8 rounded-full bg-white/10 hover:bg-[#25D366] text-white flex items-center justify-center transition-colors" title="WhatsApp">
-                        <i class="fa-brands fa-whatsapp text-sm"></i>
-                    </a>
-                </div>
             </div>
 
-            <!-- Columna 2: Horarios & Visitas -->
+            <!-- Columna 2: Horarios -->
             <div>
-                <h4 class="font-mono text-xs uppercase tracking-widest text-[#B89758] mb-3">Visitas & Horario</h4>
-                <ul class="space-y-2 text-[#E4DFD3]/80 font-light">
-                    <li><strong class="text-white font-medium">Lunes a Sábado:</strong> 17:00 a 22:00 hrs</li>
-                    <li><strong class="text-white font-medium">Domingos:</strong> Cerrado (Montaje de sala)</li>
-                    <li class="pt-2 text-[11px] text-[#86efac]">Entrada gratuita a las exposiciones</li>
+                <h4 class="font-mono text-xs uppercase tracking-widest text-[#C5A059] mb-2 font-bold">Horarios de Servicio</h4>
+                <ul class="space-y-1.5 text-[#E5E0D4]/80 font-mono text-[11px]">
+                    <li>LUNES A SÁBADO: 17:00 a 22:00 hrs</li>
+                    <li>DOMINGOS: Cerrado por montaje de galería</li>
+                    <li class="pt-2 text-[#86efac]">Entrada gratuita a las exposiciones</li>
                 </ul>
             </div>
 
-            <!-- Columna 3: Dirección -->
+            <!-- Columna 3: Ubicación y Contacto -->
             <div>
-                <h4 class="font-mono text-xs uppercase tracking-widest text-[#B89758] mb-3">Ubicación</h4>
-                <address class="not-italic space-y-2 text-[#E4DFD3]/80 font-light">
+                <h4 class="font-mono text-xs uppercase tracking-widest text-[#C5A059] mb-2 font-bold">Ubicación</h4>
+                <address class="not-italic text-[#E5E0D4]/80 font-mono text-[11px] space-y-1">
                     <p>Antonio Ancona #19, Col. Cuajimalpa Centro</p>
-                    <p>Cuajimalpa de Morelos, C.P. 05000</p>
-                    <p>Ciudad de México</p>
+                    <p>Cuajimalpa de Morelos, C.P. 05000, CDMX</p>
+                    <p class="pt-2">
+                        <a href="https://www.instagram.com/cafe_ancona" target="_blank" class="text-[#86efac] hover:underline inline-flex items-center gap-1">
+                            <i class="fa-brands fa-instagram"></i> @cafe_ancona
+                        </a>
+                    </p>
                 </address>
             </div>
         </div>
 
-        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center text-[11px] text-white/50 font-mono gap-3">
-            <span>© 2026 Café Ancona · Todos los derechos reservados.</span>
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center text-[10px] text-white/50 font-mono gap-2">
+            <span>© 2026 Café Ancona · Café & Galería de Arte.</span>
             <span>Versión Demo 2 · Inspirada en La Mansión</span>
         </div>
     </footer>
 
-    <!-- MODAL LIGHTBOX PARA VIDEOS Y CARTELES EN ALTA DEFINICIÓN -->
+    <!-- MODAL LIGHTBOX PARA VIDEOS DE EXPOSICIÓN Y CARTELES EN ALTA DEFINICIÓN -->
     <div id="video-modal" class="fixed inset-0 z-[1000] hidden items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md opacity-0 transition-opacity duration-300" onclick="if(event.target === this) cerrarModalVideo()">
         <div class="relative w-full max-w-3xl bg-[#141615] rounded-2xl overflow-hidden shadow-2xl border border-white/20 transform scale-95 transition-transform duration-300" id="video-modal-card">
-            <!-- Barra superior del modal -->
-            <div class="flex items-center justify-between px-5 py-3.5 bg-[#1F2220] border-b border-white/10">
+            <div class="flex items-center justify-between px-5 py-3.5 bg-[#1F2421] border-b border-white/10">
                 <div class="flex items-center gap-2.5 text-[#86efac] min-w-0 pr-3">
                     <i class="fa-solid fa-palette text-sm flex-shrink-0"></i>
-                    <h3 id="video-modal-title" class="font-editorial-title text-sm sm:text-base font-bold text-white tracking-wide truncate">Exposición de Arte</h3>
+                    <h3 id="video-modal-title" class="font-titulo text-sm sm:text-base font-bold text-white tracking-wide truncate">Exposición de Arte</h3>
                 </div>
-                <button onclick="cerrarModalVideo()" class="text-white/70 hover:text-white w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors flex-shrink-0" title="Cerrar ventana">
+                <button onclick="cerrarModalVideo()" class="text-white/70 hover:text-white w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors flex-shrink-0" title="Cerrar">
                     <i class="fa-solid fa-xmark text-lg"></i>
                 </button>
             </div>
-            <!-- Contenedor dinámico (Video o Imagen en alta resolución) -->
             <div class="relative w-full aspect-video bg-black flex items-center justify-center" id="video-player-container"></div>
-            <!-- Pie informativo de la obra / artista -->
-            <div class="p-4 sm:p-5 bg-[#141615] text-xs text-[#E4DFD3]/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                <p id="video-modal-desc" class="font-light italic flex-1 break-words">Café Ancona · Café & Galería de Arte</p>
-                <span class="mansion-badge mansion-badge-green flex-shrink-0">SALA DE EXPOSICIONES</span>
+            <div class="p-4 sm:p-5 bg-[#141615] text-xs text-[#E5E0D4]/80 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 font-mono">
+                <p id="video-modal-desc" class="italic flex-1 break-words font-sans">Café Ancona · Galería en Sala</p>
+                <span class="text-[9px] uppercase tracking-wider text-[#86efac] bg-[#6F816A]/20 px-2 py-1 rounded border border-[#6F816A]/40 flex-shrink-0">EXPOSICIÓN ACTIVA</span>
             </div>
         </div>
     </div>
 
-    <!-- Botón Flotante de WhatsApp Estilo La Mansión -->
-    <a href="https://wa.me/?text=Hola%20Café%20Ancona,%20quisiera%20hacer%20un%20pedido%20o%20reservación" target="_blank" class="fixed bottom-6 right-6 w-12 h-12 sm:w-14 sm:h-14 bg-[#6F816A] hover:bg-[#4A5746] text-[#F7F5ED] rounded-full flex items-center justify-center shadow-xl z-50 hover:scale-105 active:scale-95 transition-all duration-300 border border-white/20" title="Contactar por WhatsApp">
+    <!-- Botón Flotante de WhatsApp para Pedidos -->
+    <a href="https://wa.me/?text=Hola%20Café%20Ancona,%20quisiera%20hacer%20un%20pedido%20de%20la%20carta" target="_blank" class="fixed bottom-6 right-6 w-12 h-12 sm:w-14 sm:h-14 bg-[#6F816A] hover:bg-[#3F523B] text-[#F7F5ED] rounded-full flex items-center justify-center shadow-2xl z-50 hover:scale-105 active:scale-95 transition-all duration-300 border border-white/20" title="Hacer pedido por WhatsApp">
         <i class="fa-brands fa-whatsapp text-2xl"></i>
     </a>
 
-    <!-- LÓGICA DE DATOS, SERPIENTE Y RENDERIZADO EDITORIAL -->
+    <!-- LÓGICA DE DATOS, MENÚ Y RENDERIZADO -->
     <script>
         // =========================================================================
-        // 1. SERPIENTE ONDULANTE EN EL HEADER (ANIMACIÓN SINUSOIDAL NATURAL)
-        // =========================================================================
-        (function initHeaderSerpent() {
-            const canvas = document.getElementById('header-serpent-canvas');
-            const stage = document.getElementById('header-serpent-stage');
-            if (!canvas || !stage) return;
-            const ctx = canvas.getContext('2d');
-
-            const serpentImg = new Image();
-            serpentImg.src = 'assets/serpiente_extra_larga.png';
-
-            let dpr = window.devicePixelRatio || 1;
-            let width = 0;
-            let height = 0;
-
-            function resizeCanvas() {
-                dpr = window.devicePixelRatio || 1;
-                width = stage.clientWidth;
-                height = stage.clientHeight || 38;
-                canvas.width = width * dpr;
-                canvas.height = height * dpr;
-                ctx.setTransform(1, 0, 0, 1, 0, 0);
-                ctx.scale(dpr, dpr);
-            }
-
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
-
-            let snakeX = 0;
-            const speed = 1.05;
-            let waveTime = 0;
-            const numSlices = 52;
-
-            serpentImg.onload = () => {
-                snakeX = width + 50;
-            };
-
-            function drawLoop() {
-                ctx.clearRect(0, 0, width, height);
-
-                if (serpentImg.complete && serpentImg.naturalWidth > 0) {
-                    const imgW = serpentImg.naturalWidth;
-                    const imgH = serpentImg.naturalHeight;
-
-                    const isMobile = width < 640;
-                    const bodyH = isMobile ? Math.min(24, height * 0.65) : Math.min(28, height * 0.7);
-                    const snakeLen = Math.max(150, bodyH * 4.6);
-                    const centerY = height / 2;
-
-                    snakeX -= speed;
-                    if (snakeX < -snakeLen - 50) {
-                        snakeX = width + 50;
-                    }
-
-                    waveTime += 0.08;
-
-                    ctx.save();
-                    ctx.globalAlpha = 1.0;
-                    ctx.shadowColor = 'rgba(20, 22, 21, 0.2)';
-                    ctx.shadowBlur = 4;
-                    ctx.shadowOffsetY = 1;
-
-                    const sliceSrcW = imgW / numSlices;
-                    const sliceDrawW = (snakeLen / numSlices) + 1.25;
-
-                    for (let i = 0; i < numSlices; i++) {
-                        const t = i / (numSlices - 1);
-                        const sliceX = snakeX + (t * snakeLen);
-
-                        let waveAmp = 0;
-                        if (t > 0.16) {
-                            const bodyProgress = (t - 0.16) / 0.84;
-                            waveAmp = 4.8 * Math.pow(bodyProgress, 1.2);
-                        }
-
-                        const waveY = Math.sin(waveTime + t * 5.8) * waveAmp;
-
-                        let sliceAngle = 0;
-                        if (t > 0.16) {
-                            sliceAngle = Math.cos(waveTime + t * 5.8) * (waveAmp * 0.038);
-                        }
-
-                        const sx = i * sliceSrcW;
-
-                        ctx.save();
-                        ctx.translate(sliceX, centerY + waveY);
-                        ctx.rotate(sliceAngle);
-
-                        ctx.drawImage(
-                            serpentImg,
-                            sx, 0, sliceSrcW, imgH,
-                            -sliceDrawW / 2, -bodyH / 2, sliceDrawW, bodyH
-                        );
-                        ctx.restore();
-                    }
-
-                    ctx.restore();
-                }
-
-                requestAnimationFrame(drawLoop);
-            }
-
-            requestAnimationFrame(drawLoop);
-        })();
-
-        // =========================================================================
-        // 2. DATOS DE CAFÉ ANCONA (INCLUYENDO LAS 3 EXPOSICIONES CON SUS IMÁGENES)
+        // DATOS DE CAFÉ ANCONA (INCLUYENDO LAS 3 EXPOSICIONES CON SUS IMÁGENES)
         // =========================================================================
         const DEFAULT_MENU_ROWS = [
             // PROMOS
@@ -394,7 +283,7 @@
             { categoria: 'Promociones', nombre: 'Experiencia Galería & Maridaje', descripcion: 'Cold Brew infusionado 20 hrs con romero y toronja + Tarta Vasca quemada con frutos rojos silvestres.', precio: '$145', tamano: '', variante: '', estado: 'activo' },
             { categoria: 'Promociones', nombre: 'Brunch Galería Completo', descripcion: 'Chilaquiles Ancona con Burrata fresca entera 125g + Café de especialidad americano o espresso doble.', precio: '$175', tamano: '', variante: '', estado: 'activo' },
 
-            // EXPOSICIONES DE ARTE (ADMINISTRABLES: AGREGAR O QUITAR EXPOSICIONES)
+            // SECCIÓN EXPOSICIONES (ADMINISTRABLE: SE PUEDEN AGREGAR O QUITAR EXPOSICIONES)
             // Solo la primera cuenta con video, las demás muestran sus carteles oficiales en alta resolución
             { 
                 categoria: 'Exposiciones', 
@@ -465,51 +354,13 @@
             { categoria: 'Galería de Arte', nombre: 'Taza de Gres Café Ancona (Colección)', descripcion: 'Pieza torneada a mano por alfareros con esmalte verde bosque y filo bañado en oro.', precio: '$320', tamano: '8 oz', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=300&q=80' }
         ];
 
-        let isHeaderCollapsed = false;
-        let isProgrammaticScrolling = false;
+        let globalMenuData = {};
+        let globalPromos = [];
 
         document.addEventListener("DOMContentLoaded", () => {
             fetchMenuData();
-            initSmartHeader();
+            initSearchFilter();
         });
-
-        // Smart Header con repliegue refinado
-        function initSmartHeader() {
-            let lastScrollY = window.scrollY;
-            const mainHeader = document.getElementById('main-header');
-            const topInfoBlock = document.getElementById('top-info-block');
-            const spacer = document.getElementById('header-spacer');
-
-            function ajustarEspaciador() { 
-                if (mainHeader && spacer) {
-                    spacer.style.height = mainHeader.offsetHeight + 'px'; 
-                }
-            }
-            setTimeout(ajustarEspaciador, 300);
-            window.addEventListener('resize', ajustarEspaciador);
-
-            window.addEventListener('scroll', () => {
-                if (isProgrammaticScrolling) return;
-                const currentScrollY = window.scrollY;
-                const delta = currentScrollY - lastScrollY;
-                const infoHeight = topInfoBlock ? topInfoBlock.offsetHeight : 0;
-
-                if (Math.abs(delta) < 10 || currentScrollY < 0) return;
-
-                if (delta > 0 && currentScrollY > infoHeight) {
-                    if (!isHeaderCollapsed) {
-                        mainHeader.style.transform = `translateY(-${infoHeight}px)`;
-                        isHeaderCollapsed = true;
-                    }
-                } else if (delta < 0) {
-                    if (isHeaderCollapsed) {
-                        mainHeader.style.transform = 'translateY(0)';
-                        isHeaderCollapsed = false;
-                    }
-                }
-                lastScrollY = currentScrollY;
-            }, { passive: true });
-        }
 
         // =========================================================================
         // PROCESADOR DE ENLACES DE VIDEO Y HOJAS DE GOOGLE SHEETS
@@ -530,14 +381,14 @@
                         }
                     },
                     error: function(err) {
-                        console.warn('Error al leer Google Sheets, utilizando datos locales:', err);
+                        console.warn('Error al leer Google Sheets, usando datos locales:', err);
                         procesarYRenderizar(DEFAULT_MENU_ROWS);
                     }
                 });
             } else {
                 setTimeout(() => {
                     procesarYRenderizar(DEFAULT_MENU_ROWS);
-                }, 250);
+                }, 200);
             }
         }
 
@@ -623,11 +474,13 @@
                 });
             });
 
+            globalMenuData = menuAgrupado;
+            globalPromos = listaPromos;
             construirInterfaz(listaPromos, menuAgrupado);
         }
 
         // =========================================================================
-        // 3. CONSTRUCCIÓN DE INTERFAZ EDITORIAL ESTILO LA MANSIÓN
+        // CONSTRUCCIÓN DEL MENÚ DIGITAL (FORMATO CARTA ÁGIL)
         // =========================================================================
         function construirInterfaz(promos, menuAgrupado) {
             const navContainer = document.getElementById('categories-nav');
@@ -640,24 +493,20 @@
             menuContainer.innerHTML = ''; 
             promosGrid.innerHTML = '';
 
-            // Renderizar Promociones con diseño editorial
+            // Promociones / Especiales
             if (promos.length > 0) {
                 promosContainer.classList.remove('hidden');
-                promos.forEach((p, pIdx) => {
+                promos.forEach((p, idx) => {
                     const card = document.createElement('div');
-                    card.className = "mansion-card mansion-card-featured p-5 flex flex-col justify-between shadow-sm relative";
+                    card.className = "bg-[#FCFBF7] border border-[#C5A059]/40 rounded-xl p-4 flex flex-col justify-between shadow-sm hover:border-[#6F816A] transition-all";
                     card.innerHTML = `
                         <div>
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="mansion-badge mansion-badge-gold">OBRA 0${pIdx + 1}</span>
-                                <span class="font-mono text-[10px] text-[#8C6A28]">MARIDAJE</span>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="font-mono text-[9px] uppercase tracking-widest text-[#C5A059] font-bold">OBRA ESPECIAL 0${idx+1}</span>
+                                <span class="menu-price-badge">${formatearPrecio(p.precio)}</span>
                             </div>
-                            <h3 class="font-editorial-title text-base sm:text-lg font-bold text-[#141615] leading-snug mb-1.5">${p.nombre}</h3>
-                            ${p.descripcion ? `<p class="text-xs text-[#646A64] leading-relaxed font-light mb-3">${p.descripcion}</p>` : ''}
-                        </div>
-                        <div class="pt-3 border-t border-[#E4DFD3] flex items-center justify-between mt-auto">
-                            <span class="font-mono text-[10px] text-[#646A64] uppercase tracking-wider">PRECIO CARTA</span>
-                            <span class="mansion-price-tag">${formatearPrecio(p.precio)}</span>
+                            <h3 class="font-titulo text-sm sm:text-base font-bold text-[#141615] leading-snug mb-1">${p.nombre}</h3>
+                            ${p.descripcion ? `<p class="text-xs text-[#5C635B] font-light leading-relaxed">${p.descripcion}</p>` : ''}
                         </div>
                     `;
                     promosGrid.appendChild(card);
@@ -670,62 +519,61 @@
             categories.forEach((categoria, index) => {
                 const catId = `seccion-${index}`;
                 const btn = document.createElement('button');
-                btn.className = `mansion-nav-btn ${index === 0 ? 'active' : ''}`;
+                btn.className = `mansion-nav-pill ${index === 0 ? 'active' : ''}`;
                 btn.innerText = categoria;
 
                 btn.onclick = () => {
                     document.querySelectorAll('#categories-nav button').forEach(b => b.classList.remove('active'));
                     btn.classList.add('active');
 
-                    isProgrammaticScrolling = true;
                     const target = (categoria === 'Promociones') ? promosContainer : document.getElementById(catId);
-                    const mainHeader = document.getElementById('main-header');
-                    const topInfoBlock = document.getElementById('top-info-block');
-                    const visibleHeaderHeight = mainHeader.offsetHeight - (isHeaderCollapsed ? topInfoBlock.offsetHeight : 0);
-                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - visibleHeaderHeight - 15;
+                    const categoryBar = document.getElementById('menu-seccion-principal');
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - categoryBar.offsetHeight - 15;
 
                     window.scrollTo({ top: targetPosition, behavior: "smooth" });
-                    setTimeout(() => { isProgrammaticScrolling = false; }, 800);
                 };
                 navContainer.appendChild(btn);
 
                 if (categoria !== 'Promociones') {
                     const seccion = document.createElement('section');
                     seccion.id = catId; 
-                    seccion.className = "mb-14 pt-4";
+                    if (categoria.toLowerCase().includes('exposicion') || categoria.toLowerCase().includes('exposición')) {
+                        seccion.id = 'seccion-exposiciones';
+                    }
+                    seccion.className = "mb-10 pt-4";
                     const listaProductos = Object.values(menuAgrupado[categoria]);
                     const esCatExposiciones = categoria.toLowerCase().includes('exposicion') || categoria.toLowerCase().includes('exposición');
                     const sectionNumber = (index < 10 ? `0${index}` : `${index}`);
 
                     seccion.innerHTML = `
-                        <!-- Encabezado de Sección con Número Editorial Estilo La Mansión -->
-                        <div class="flex items-end justify-between mb-6 pb-2.5 border-b border-[#141615]">
-                            <div>
-                                <span class="font-mono text-xs uppercase tracking-[0.2em] text-[#6F816A] block mb-0.5">${sectionNumber} / CARTA</span>
-                                <h2 class="font-editorial-title text-2xl sm:text-3xl font-bold uppercase tracking-wider text-[#141615]">${categoria}</h2>
+                        <!-- Encabezado de Sección en la Carta -->
+                        <div class="flex items-end justify-between mb-4 pb-2 border-b border-[#141615]">
+                            <div class="flex items-baseline gap-2">
+                                <span class="font-mono text-xs text-[#6F816A] font-bold">${sectionNumber}</span>
+                                <h2 class="font-titulo text-xl sm:text-2xl font-bold uppercase tracking-wide text-[#141615]">${categoria}</h2>
                             </div>
                             ${esCatExposiciones 
-                                ? '<span class="mansion-badge mansion-badge-green"><i class="fa-solid fa-palette text-[#6F816A]"></i> OBRAS EN SALA</span>' 
-                                : '<span class="font-mono text-xs text-[#646A64] hidden sm:inline-block">CAFÉ ANCONA</span>'}
+                                ? '<span class="font-mono text-[10px] text-[#6F816A] font-bold bg-[#6F816A]/10 px-2 py-0.5 rounded border border-[#6F816A]/30">GALERÍA EN SALA</span>' 
+                                : '<span class="font-mono text-[10px] text-[#5C635B] uppercase tracking-wider">CAFÉ ANCONA</span>'}
                         </div>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div class="grid grid-cols-1 ${esCatExposiciones ? 'md:grid-cols-2' : 'md:grid-cols-2'} gap-3 sm:gap-4">
                             ${listaProductos.map((item, itemIdx) => {
                                 const videoInfo = procesarUrlVideo(item.video) || procesarUrlVideo(item.imagen);
                                 const tieneImagen = item.imagen && item.imagen.trim().length > 0 && !procesarUrlVideo(item.imagen);
                                 let preciosHTML = '';
 
                                 if (item.variaciones.length === 1 && !item.variaciones[0].tamano && !item.variaciones[0].variante) {
-                                    preciosHTML = `<span class="mansion-price-tag">${formatearPrecio(item.variaciones[0].precio)}</span>`;
+                                    preciosHTML = `<span class="menu-price-badge">${formatearPrecio(item.variaciones[0].precio)}</span>`;
                                 } else {
                                     preciosHTML = `
-                                        <div class="flex flex-col gap-1.5 text-right items-end flex-shrink-0">
+                                        <div class="flex flex-col gap-1 text-right items-end flex-shrink-0">
                                             ${item.variaciones.map(v => {
                                                 let etiqueta = v.tamano && v.variante ? `${v.tamano} / ${v.variante}` : (v.tamano || v.variante || '');
                                                 return `
-                                                    <div class="flex items-center gap-2 justify-end w-full">
-                                                        ${etiqueta ? `<span class="text-[10px] font-mono text-[#646A64] bg-[#F7F5ED] px-2 py-0.5 rounded border border-[#E4DFD3]">${etiqueta}</span>` : ''}
-                                                        <span class="mansion-price-tag text-xs">${formatearPrecio(v.precio)}</span>
+                                                    <div class="flex items-center gap-1.5 justify-end w-full">
+                                                        ${etiqueta ? `<span class="text-[9px] font-mono text-[#5C635B] bg-[#E5E0D4]/50 px-1.5 py-0.5 rounded font-medium">${etiqueta}</span>` : ''}
+                                                        <span class="menu-price-badge text-xs">${formatearPrecio(v.precio)}</span>
                                                     </div>
                                                 `;
                                             }).join('')}
@@ -736,40 +584,36 @@
                                 const nombreEsc = item.nombre.replace(/'/g, "\\'").replace(/"/g, '&quot;');
                                 const descEsc = (item.descripcion || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
 
-                                // 1. TARJETA DE EXPOSICIÓN CON VIDEO (Panorámica 16:9 - Solo la primera exposición)
+                                // 1. EXPOSICIÓN CON VIDEO (16:9 Panorámica - Solo la 1ra exposición)
                                 if (videoInfo) {
                                     const posterImg = tieneImagen ? item.imagen.trim() : (videoInfo.thumbUrl || 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=600&q=80');
                                     const urlEsc = videoInfo.embedUrl.replace(/'/g, "\\'");
 
                                     return `
-                                        <div class="mansion-expo-card col-span-1 md:col-span-2 p-5 sm:p-6 group">
-                                            <!-- Video Thumbnail 16:9 con Botón Play Estilo La Mansión -->
-                                            <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black/90 shadow-md cursor-pointer mb-4 group/video border border-white/10" onclick="abrirModalExposicion('${nombreEsc}', '${urlEsc}', '${videoInfo.tipo}', '${descEsc}')">
+                                        <div class="expo-video-card col-span-1 md:col-span-2 p-4 sm:p-5">
+                                            <div class="relative w-full aspect-video rounded-lg overflow-hidden bg-black shadow-md cursor-pointer mb-3 group/video" onclick="abrirModalExposicion('${nombreEsc}', '${urlEsc}', '${videoInfo.tipo}', '${descEsc}')">
                                                 <img src="${posterImg}" alt="${item.nombre}" class="w-full h-full object-cover transition-transform duration-500 group-hover/video:scale-105 opacity-85">
-                                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex items-center justify-center">
-                                                    <div class="w-16 h-16 rounded-full bg-[#6F816A] hover:bg-[#4A5746] text-[#F7F5ED] flex items-center justify-center shadow-2xl backdrop-blur-md transform transition-all duration-300 group-hover/video:scale-110 border border-white/30">
-                                                        <i class="fa-solid fa-play ml-1 text-xl text-white"></i>
+                                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-center justify-center">
+                                                    <div class="w-14 h-14 rounded-full bg-[#6F816A] hover:bg-[#3F523B] text-white flex items-center justify-center shadow-xl transform transition-transform group-hover/video:scale-110 border border-white/20">
+                                                        <i class="fa-solid fa-play ml-1 text-lg"></i>
                                                     </div>
                                                 </div>
-                                                <div class="absolute top-3 left-3 bg-[#141615]/90 text-[#F7F5ED] text-[10px] font-mono px-3 py-1 rounded border border-white/20 uppercase tracking-widest">
+                                                <div class="absolute top-2.5 left-2.5 bg-black/80 text-white text-[9px] font-mono px-2 py-0.5 rounded uppercase tracking-wider">
                                                     <i class="fa-solid fa-film text-[#86efac] mr-1"></i> EXPOSICIÓN CON VIDEO
-                                                </div>
-                                                <div class="absolute bottom-3 right-3 bg-black/70 text-white text-[10px] font-mono px-2.5 py-1 rounded backdrop-blur-sm">
-                                                    <i class="fa-solid fa-expand mr-1 text-[9px]"></i> TOCAR PARA REPRODUCIR
                                                 </div>
                                             </div>
 
-                                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+                                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3">
                                                 <div class="flex-1 min-w-0">
-                                                    <span class="mansion-badge mansion-badge-gold mb-2">OBRA 01 · SALA PRINCIPAL</span>
-                                                    <h3 class="font-editorial-title text-xl sm:text-2xl font-bold text-white leading-tight mb-2">${item.nombre}</h3>
-                                                    ${item.descripcion ? `<p class="text-[#E4DFD3]/80 text-xs sm:text-sm font-light leading-relaxed">${item.descripcion}</p>` : ''}
+                                                    <span class="font-mono text-[9px] uppercase tracking-widest text-[#C5A059] block mb-1">OBRA 01 · SALA PRINCIPAL</span>
+                                                    <h3 class="font-titulo text-base sm:text-lg font-bold text-white leading-snug">${item.nombre}</h3>
+                                                    ${item.descripcion ? `<p class="text-xs text-[#E5E0D4]/80 font-light mt-1">${item.descripcion}</p>` : ''}
                                                 </div>
-                                                <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end flex-shrink-0 pt-3 sm:pt-0 border-t sm:border-t-0 border-white/10">
-                                                    <span class="mansion-price-tag bg-white/10 border-white/20 text-white">${formatearPrecio(item.precio || item.variaciones[0]?.precio)}</span>
-                                                    <button onclick="abrirModalExposicion('${nombreEsc}', '${urlEsc}', '${videoInfo.tipo}', '${descEsc}')" class="mansion-btn-primary px-4 py-2 text-xs">
-                                                        <i class="fa-solid fa-play mr-1.5 text-xs"></i>
-                                                        <span>VER DOCUMENTAL</span>
+                                                <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end flex-shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-white/10">
+                                                    <span class="menu-price-badge bg-white/10 border-white/20 text-white">${formatearPrecio(item.precio || item.variaciones[0]?.precio)}</span>
+                                                    <button onclick="abrirModalExposicion('${nombreEsc}', '${urlEsc}', '${videoInfo.tipo}', '${descEsc}')" class="mansion-btn-primary px-3 py-1.5 text-xs">
+                                                        <i class="fa-solid fa-play mr-1 text-xs"></i>
+                                                        <span>DOCUMENTAL</span>
                                                     </button>
                                                 </div>
                                             </div>
@@ -777,40 +621,34 @@
                                     `;
                                 }
 
-                                // 2. TARJETA DE EXPOSICIÓN CON CARTEL (Exposiciones 2 y 3 sin video)
+                                // 2. EXPOSICIÓN CON CARTEL (Exposiciones 2 y 3 sin video)
                                 if (esCatExposiciones) {
                                     const posterImg = tieneImagen ? item.imagen.trim() : 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=600&q=80';
                                     const urlImgEsc = posterImg.replace(/'/g, "\\'");
-                                    const expoBadgeNum = `OBRA 0${itemIdx + 1}`;
 
                                     return `
-                                        <div class="mansion-card p-5 flex flex-col justify-between group">
-                                            <!-- Cartel con opción de zoom en lightbox -->
-                                            <div class="relative w-full h-80 rounded-xl overflow-hidden bg-[#141615] shadow-sm cursor-pointer mb-4 group/poster border border-[#E4DFD3]" onclick="abrirModalExposicion('${nombreEsc}', '${urlImgEsc}', 'imagen', '${descEsc}')">
-                                                <img src="${posterImg}" alt="${item.nombre}" class="w-full h-full object-contain sm:object-cover transition-transform duration-500 group-hover/poster:scale-105">
-                                                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover/poster:opacity-100 transition-opacity flex items-center justify-center">
-                                                    <div class="w-12 h-12 rounded-full bg-[#6F816A] text-white flex items-center justify-center shadow-lg border border-white/30">
-                                                        <i class="fa-solid fa-magnifying-glass-plus text-base"></i>
-                                                    </div>
+                                        <div class="bg-[#FCFBF7] border border-[#E5E0D4] rounded-xl p-4 flex flex-col justify-between hover:border-[#6F816A] transition-all">
+                                            <div class="relative w-full h-64 sm:h-72 rounded-lg overflow-hidden bg-[#141615] cursor-pointer mb-3 border border-[#E5E0D4] group/img" onclick="abrirModalExposicion('${nombreEsc}', '${urlImgEsc}', 'imagen', '${descEsc}')">
+                                                <img src="${posterImg}" alt="${item.nombre}" class="w-full h-full object-contain sm:object-cover transition-transform duration-500 group-hover/img:scale-105">
+                                                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
+                                                    <span class="bg-white/90 text-[#141615] text-xs font-mono px-3 py-1 rounded-full font-bold shadow">
+                                                        <i class="fa-solid fa-magnifying-glass-plus mr-1"></i> AMPLIAR
+                                                    </span>
                                                 </div>
-                                                <div class="absolute top-3 left-3 bg-[#141615]/85 text-[#F7F5ED] text-[10px] font-mono px-2.5 py-1 rounded border border-white/10 uppercase tracking-wider">
-                                                    <i class="fa-solid fa-palette text-[#86efac] mr-1"></i> CARTEL OFICIAL
-                                                </div>
-                                                <div class="absolute bottom-3 right-3 bg-black/70 text-white text-[10px] font-mono px-2 py-0.5 rounded backdrop-blur-sm">
-                                                    AMPLIAR CARTEL
+                                                <div class="absolute top-2 left-2 bg-black/80 text-white text-[9px] font-mono px-2 py-0.5 rounded">
+                                                    CARTEL OFICIAL
                                                 </div>
                                             </div>
 
-                                            <div class="flex flex-col flex-1 justify-between gap-3">
+                                            <div class="flex flex-col flex-1 justify-between gap-2">
                                                 <div>
-                                                    <span class="mansion-badge mansion-badge-green mb-1.5">${expoBadgeNum}</span>
-                                                    <h3 class="font-editorial-title text-base sm:text-lg font-bold text-[#141615] leading-snug mb-1.5">${item.nombre}</h3>
-                                                    ${item.descripcion ? `<p class="text-xs text-[#646A64] leading-relaxed font-light">${item.descripcion}</p>` : ''}
+                                                    <h3 class="font-titulo text-sm sm:text-base font-bold text-[#141615] leading-snug">${item.nombre}</h3>
+                                                    ${item.descripcion ? `<p class="text-xs text-[#5C635B] font-light mt-1">${item.descripcion}</p>` : ''}
                                                 </div>
-                                                <div class="flex items-center justify-between pt-3 border-t border-[#E4DFD3] mt-auto">
-                                                    <span class="mansion-price-tag">${formatearPrecio(item.precio || item.variaciones[0]?.precio)}</span>
-                                                    <button onclick="abrirModalExposicion('${nombreEsc}', '${urlImgEsc}', 'imagen', '${descEsc}')" class="mansion-btn-outline px-3 py-1.5 text-[11px]">
-                                                        <i class="fa-solid fa-eye mr-1"></i> VER EN GRANDE
+                                                <div class="flex items-center justify-between pt-2 border-t border-[#E5E0D4] mt-auto">
+                                                    <span class="menu-price-badge">${formatearPrecio(item.precio || item.variaciones[0]?.precio)}</span>
+                                                    <button onclick="abrirModalExposicion('${nombreEsc}', '${urlImgEsc}', 'imagen', '${descEsc}')" class="text-xs font-mono font-bold text-[#6F816A] hover:underline">
+                                                        VER CARTEL <i class="fa-solid fa-arrow-right text-[10px]"></i>
                                                     </button>
                                                 </div>
                                             </div>
@@ -818,24 +656,22 @@
                                     `;
                                 }
 
-                                // 3. TARJETA REGULAR DE ALIMENTOS / BEBIDAS (Estilo Carta La Mansión)
+                                // 3. FILA REGULAR DEL MENÚ (FORMATO CARTA ÁGIL)
                                 return `
-                                    <div class="mansion-card p-4 sm:p-5 flex gap-4 items-start group">
+                                    <div class="menu-item-row" data-search="${item.nombre.toLowerCase()} ${categoria.toLowerCase()} ${(item.descripcion||'').toLowerCase()}">
                                         ${tieneImagen ? `
-                                            <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-lg overflow-hidden flex-shrink-0 bg-[#EFECE3] border border-[#E4DFD3] shadow-sm">
-                                                <img src="${item.imagen.trim()}" alt="${item.nombre}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                                            <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden flex-shrink-0 bg-[#E5E0D4] border border-[#E5E0D4] cursor-pointer" onclick="abrirModalExposicion('${nombreEsc}', '${item.imagen.trim().replace(/'/g, "\\'")}', 'imagen', '${descEsc}')">
+                                                <img src="${item.imagen.trim()}" alt="${item.nombre}" class="w-full h-full object-cover hover:scale-110 transition-transform duration-300">
                                             </div>
                                         ` : ''}
-                                        <div class="flex-1 min-w-0 flex flex-col justify-between min-h-[5rem]">
-                                            <div class="flex justify-between items-start gap-2">
-                                                <div>
-                                                    <h3 class="font-editorial-title text-sm sm:text-base font-bold text-[#141615] leading-snug group-hover:text-[#6F816A] transition-colors">${item.nombre}</h3>
-                                                    ${item.descripcion ? `<p class="text-xs text-[#646A64] font-light leading-relaxed mt-1">${item.descripcion}</p>` : ''}
-                                                </div>
+                                        <div class="flex-1 min-w-0">
+                                            <div class="flex items-start justify-between gap-2">
+                                                <h3 class="font-titulo text-sm sm:text-base font-bold text-[#141615] leading-snug">${item.nombre}</h3>
                                             </div>
-                                            <div class="mt-3 pt-2 border-t border-[#E4DFD3]/70 flex justify-end">
-                                                ${preciosHTML}
-                                            </div>
+                                            ${item.descripcion ? `<p class="text-[11px] sm:text-xs text-[#5C635B] font-light leading-relaxed mt-0.5 line-clamp-2">${item.descripcion}</p>` : ''}
+                                        </div>
+                                        <div class="flex flex-col items-end flex-shrink-0">
+                                            ${preciosHTML}
                                         </div>
                                     </div>
                                 `;
@@ -858,18 +694,26 @@
             return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(numero);
         }
 
-        function scrollHaciaCategoria(nombre) {
-            const buttons = document.querySelectorAll('#categories-nav button');
-            for (let b of buttons) {
-                if (b.innerText.toLowerCase().includes(nombre.toLowerCase())) {
-                    b.click();
-                    break;
-                }
-            }
+        // Buscador reactivo en el menú
+        function initSearchFilter() {
+            const input = document.getElementById('menu-search-input');
+            if (!input) return;
+            input.addEventListener('input', (e) => {
+                const term = e.target.value.toLowerCase().trim();
+                const items = document.querySelectorAll('.menu-item-row');
+                items.forEach(el => {
+                    const searchData = el.getAttribute('data-search') || '';
+                    if (!term || searchData.includes(term)) {
+                        el.style.display = 'flex';
+                    } else {
+                        el.style.display = 'none';
+                    }
+                });
+            });
         }
 
         // =========================================================================
-        // 4. CONTROL DEL MODAL LIGHTBOX DE EXPOSICIÓN (VIDEO / IMAGEN HD)
+        // CONTROL DEL MODAL LIGHTBOX (VIDEOS & CARTELES EN ALTA DEFINICIÓN)
         // =========================================================================
         function abrirModalExposicion(titulo, url, tipo, descripcion) {
             const modal = document.getElementById('video-modal');
