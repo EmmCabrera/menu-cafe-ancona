@@ -211,46 +211,10 @@
         // DATOS DE CAFÉ ANCONA (INCLUYENDO LAS 3 EXPOSICIONES CON SUS IMÁGENES)
         // =========================================================================
         const DEFAULT_MENU_ROWS = [
-            // PROMOS
+            // PROMOS (LO PRIMERO DE LA CARTA)
             { categoria: 'Promociones', nombre: 'Combo Despertar Ancona', descripcion: 'Cappuccino o Flat White a elección + Croissant hojaldrado de mantequilla de Normandía.', precio: '$115', tamano: '', variante: '', estado: 'activo' },
             { categoria: 'Promociones', nombre: 'Experiencia Galería & Maridaje', descripcion: 'Cold Brew infusionado 20 hrs con romero y toronja + Tarta Vasca quemada con frutos rojos silvestres.', precio: '$145', tamano: '', variante: '', estado: 'activo' },
             { categoria: 'Promociones', nombre: 'Brunch Galería Completo', descripcion: 'Chilaquiles Ancona con Burrata fresca entera 125g + Café de especialidad americano o espresso doble.', precio: '$175', tamano: '', variante: '', estado: 'activo' },
-
-            // SECCIÓN EXPOSICIONES (ADMINISTRABLE: SE PUEDEN AGREGAR O QUITAR EXPOSICIONES)
-            // Solo la primera cuenta con video, las demás muestran sus carteles oficiales en alta resolución
-            { 
-                categoria: 'Exposiciones', 
-                nombre: 'Exposición Pictórica: Emmanuel Paloméc', 
-                descripcion: 'Inauguración: Jueves 8 de Octubre, 18:00 hrs. Música en vivo a cargo del Dúo de Cuerdas (Emmanuel García - Violonchelo, Ángel Gómez - Violín). Temporada del 8 de Octubre al 8 de Noviembre de 5 a 10 PM. Antonio Ancona #19, Cuajimalpa.', 
-                precio: 'Entrada Libre', 
-                tamano: '', 
-                variante: '', 
-                estado: 'activo', 
-                imagen: 'assets/expo_emmanuel_palomec.png', 
-                video: 'https://www.youtube.com/watch?v=ScMzIvxBSi4' 
-            },
-            { 
-                categoria: 'Exposiciones', 
-                nombre: 'Proceso de Taller: "El Rostro de Jade" (Emmanuel Paloméc)', 
-                descripcion: 'Estudio anatómico prehispánico y técnica mixta al óleo sobre lienzo. Obra en desarrollo creada directamente en el taller de arte de Café Ancona.', 
-                precio: 'Obra en Taller', 
-                tamano: '', 
-                variante: '', 
-                estado: 'activo', 
-                imagen: 'assets/expo_mascara_jade.jpg', 
-                video: '' 
-            },
-            { 
-                categoria: 'Exposiciones', 
-                nombre: 'Exposición de Pintura: Gabriel Acosta', 
-                descripcion: 'Inauguración con Vino de Honor: Jueves 20 de Agosto, 18:00 hrs. Colección de obras al óleo en gran formato exhibidas en las salas de Café Ancona.', 
-                precio: 'Vino de Honor', 
-                tamano: '', 
-                variante: '', 
-                estado: 'activo', 
-                imagen: 'assets/expo_gabriel_acosta.png', 
-                video: '' 
-            },
 
             // CAFÉ DE ESPECIALIDAD
             { categoria: 'Café de Especialidad', nombre: 'Espresso Doble Ancona', descripcion: 'Doble extracción de nuestro microlote Chiapas lavado. Notas a chocolate amargo, avellana y mandarina.', precio: '$45', tamano: '', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&w=300&q=80' },
@@ -284,7 +248,42 @@
 
             // COLECCIÓN GALERÍA DE ARTE
             { categoria: 'Galería de Arte', nombre: 'Obra Original: "El Despertar de la Serpiente"', descripcion: 'Técnica mixta sobre lienzo de lino crudo con aplicaciones de pan de oro de 24k. Medidas 90x120cm.', precio: '$4800', tamano: 'Pieza Única', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=300&q=80' },
-            { categoria: 'Galería de Arte', nombre: 'Taza de Gres Café Ancona (Colección)', descripcion: 'Pieza torneada a mano por alfareros con esmalte verde bosque y filo bañado en oro.', precio: '$320', tamano: '8 oz', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=300&q=80' }
+            { categoria: 'Galería de Arte', nombre: 'Taza de Gres Café Ancona (Colección)', descripcion: 'Pieza torneada a mano por alfareros con esmalte verde bosque y filo bañado en oro.', precio: '$320', tamano: '8 oz', variante: '', estado: 'activo', imagen: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=300&q=80' },
+
+            // SECCIÓN EXPOSICIONES (AL FINAL DEL MENÚ)
+            { 
+                categoria: 'Exposiciones', 
+                nombre: 'Exposición Pictórica: Emmanuel Paloméc', 
+                descripcion: 'Inauguración: Jueves 8 de Octubre, 18:00 hrs. Música en vivo a cargo del Dúo de Cuerdas (Emmanuel García - Violonchelo, Ángel Gómez - Violín). Temporada del 8 de Octubre al 8 de Noviembre de 5 a 10 PM. Antonio Ancona #19, Cuajimalpa.', 
+                precio: 'Entrada Libre', 
+                tamano: '', 
+                variante: '', 
+                estado: 'activo', 
+                imagen: 'assets/expo_emmanuel_palomec.png', 
+                video: 'https://www.youtube.com/watch?v=ScMzIvxBSi4' 
+            },
+            { 
+                categoria: 'Exposiciones', 
+                nombre: 'Proceso de Taller: "El Rostro de Jade" (Emmanuel Paloméc)', 
+                descripcion: 'Estudio anatómico prehispánico y técnica mixta al óleo sobre lienzo. Obra en desarrollo creada directamente en el taller de arte de Café Ancona.', 
+                precio: 'Obra en Taller', 
+                tamano: '', 
+                variante: '', 
+                estado: 'activo', 
+                imagen: 'assets/expo_mascara_jade.jpg', 
+                video: '' 
+            },
+            { 
+                categoria: 'Exposiciones', 
+                nombre: 'Exposición de Pintura: Gabriel Acosta', 
+                descripcion: 'Inauguración con Vino de Honor: Jueves 20 de Agosto, 18:00 hrs. Colección de obras al óleo en gran formato exhibidas en las salas de Café Ancona.', 
+                precio: 'Vino de Honor', 
+                tamano: '', 
+                variante: '', 
+                estado: 'activo', 
+                imagen: 'assets/expo_gabriel_acosta.png', 
+                video: '' 
+            }
         ];
 
         let globalMenuData = {};
@@ -446,11 +445,22 @@
                 });
             }
 
-            const categories = Object.keys(menuAgrupado);
-            if (promos.length > 0) categories.unshift('Promociones');
+            // Orden garantizado de la carta:
+            // 1. Promociones (lo primero del menú)
+            // 2. Resto del menú regular (Cafés, Bocados, Panadería, Especialidades, etc.)
+            // 3. Exposiciones (hasta el final del menú)
+            const rawCategories = Object.keys(menuAgrupado);
+            const regularCategories = rawCategories.filter(c => !c.toLowerCase().includes('exposicion') && !c.toLowerCase().includes('exposición'));
+            const expoCategories = rawCategories.filter(c => c.toLowerCase().includes('exposicion') || c.toLowerCase().includes('exposición'));
+
+            const categories = [];
+            if (promos.length > 0) categories.push('Promociones');
+            categories.push(...regularCategories);
+            categories.push(...expoCategories);
 
             categories.forEach((categoria, index) => {
-                const catId = `seccion-${index}`;
+                const isExpo = categoria.toLowerCase().includes('exposicion') || categoria.toLowerCase().includes('exposición');
+                const catId = isExpo ? 'seccion-exposiciones' : `seccion-${index}`;
                 const btn = document.createElement('button');
                 btn.className = `mansion-nav-pill ${index === 0 ? 'active' : ''}`;
                 btn.innerText = categoria;
@@ -460,22 +470,20 @@
                     btn.classList.add('active');
 
                     const target = (categoria === 'Promociones') ? promosContainer : document.getElementById(catId);
-                    const categoryBar = document.getElementById('menu-seccion-principal');
-                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - categoryBar.offsetHeight - 15;
-
-                    window.scrollTo({ top: targetPosition, behavior: "smooth" });
+                    if (target) {
+                        const categoryBar = document.getElementById('menu-seccion-principal');
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - categoryBar.offsetHeight - 15;
+                        window.scrollTo({ top: targetPosition, behavior: "smooth" });
+                    }
                 };
                 navContainer.appendChild(btn);
 
                 if (categoria !== 'Promociones') {
                     const seccion = document.createElement('section');
                     seccion.id = catId; 
-                    if (categoria.toLowerCase().includes('exposicion') || categoria.toLowerCase().includes('exposición')) {
-                        seccion.id = 'seccion-exposiciones';
-                    }
                     seccion.className = "mb-10 pt-4";
                     const listaProductos = Object.values(menuAgrupado[categoria]);
-                    const esCatExposiciones = categoria.toLowerCase().includes('exposicion') || categoria.toLowerCase().includes('exposición');
+                    const esCatExposiciones = isExpo;
                     seccion.innerHTML = `
                         <!-- Encabezado de Sección en la Carta -->
                         <div class="flex items-center justify-between mb-4 pb-2 border-b border-[#141615]">
